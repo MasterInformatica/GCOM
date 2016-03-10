@@ -19,7 +19,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -67,6 +67,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Cara.cpp" />
+    <ClCompile Include="Hipotrocoide.cpp" />
     <ClCompile Include="Iman.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Malla.cpp" />
@@ -76,6 +77,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cara.h" />
+    <ClInclude Include="Hipotrocoide.h" />
     <ClInclude Include="Iman.h" />
     <ClInclude Include="Malla.h" />
     <ClInclude Include="PuntoVector3D.h" />

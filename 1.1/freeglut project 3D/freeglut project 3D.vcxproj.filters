@@ -36,6 +36,9 @@
     <ClCompile Include="Iman.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Hipotrocoide.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cara.h">
@@ -54,6 +57,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Iman.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hipotrocoide.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

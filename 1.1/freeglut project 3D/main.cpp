@@ -6,6 +6,7 @@
 //#include <GL/glut.h>
 
 #include "Iman.h"
+#include "Hipotrocoide.h"
 
 #include <iostream>
 using namespace std;
@@ -28,24 +29,16 @@ GLdouble upX=0, upY=1, upZ=0;
 // Scene variables
 GLfloat angX, angY, angZ; 
 
-Iman* r;
+Iman* i;
+Hipotrocoide* h;
 
 void buildSceneObjects() {	 
     angX=0.0f;
     angY=0.0f;
     angZ=0.0f;	
-	/*
-	PuntoVector3D** perfil = new PuntoVector3D* [4];
-	perfil[0] = new PuntoVector3D(1, 0, 0, 1);
-	perfil[1] = new PuntoVector3D(2, 0, 0, 1);
-	perfil[2] = new PuntoVector3D(2, 1, 0, 1);
-	perfil[3] = new PuntoVector3D(1, 1, 0, 1);
-	
-	r = new Revolucion(perfil, 4);
-	r->revoluciona(180, 100, true);
-	*/
 
-	r = new Iman(100, 1, 2);
+//	i = new Iman(100, 1, 2, 2);
+	h = new Hipotrocoide(50, 150);
 }
 
 void initGL() {	 		 
@@ -114,8 +107,9 @@ void display(void) {
 		 		
 		// Drawing the scene	 		 
 		glColor3f(1.0, 1.0, 1.0);
-//		glutSolidSphere(6, 50, 60); //Sphere: radius=6, meridians=50, parallels=60
-		r->dibuja();
+	//	i->dibuja();
+		h->dibuja();
+
 	glPopMatrix();
  
 	glFlush();

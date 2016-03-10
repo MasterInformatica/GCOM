@@ -5,7 +5,7 @@
 
 class Iman : public Revolucion{
 public:
-	Iman(int nQ, float rInt, float rExt);
+	Iman(int nQ, float rInt, float rExt, float h);
 	virtual ~Iman();
 
 	void dibuja();

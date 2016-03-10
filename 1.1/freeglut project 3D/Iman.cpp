@@ -1,11 +1,10 @@
 #include "Iman.h"
 
 
-Iman::Iman(int nQ, float rInt, float rExt){
+Iman::Iman(int nQ, float rInt, float rExt, float h){
 	this->nPuntosPerfil = 4;
 	this->perfil = new PuntoVector3D*[nPuntosPerfil];
 
-	float h = rExt - rInt;
 	perfil[0] = new PuntoVector3D(rInt, 0, 0, 1);
 	perfil[1] = new PuntoVector3D(rExt, 0, 0, 1);
 	perfil[2] = new PuntoVector3D(rExt, h, 0, 1);
