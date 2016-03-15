@@ -8,13 +8,21 @@ class Hipotrocoide : public Malla
 public:
 	Hipotrocoide(int nP, int nQ, float a = 7.0, float b = 4.0, float c = 2.0);
 	~Hipotrocoide();
+
+	void cambiaModoRelleno(bool modo);
+	void dibuja();
+
 private:
 	Hipotrocoide(){};
+
 	float a, b, c;
 	int nP, nQ;
+
+	bool modoRelleno = true;
+
 	PuntoVector3D** perfil;
 
-	void generaPerfil(float radio = 0.6);
+	void generaPerfil(float radio = 0.5);
 	void generaMalla();
 
 

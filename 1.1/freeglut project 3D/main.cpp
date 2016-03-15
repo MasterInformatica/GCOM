@@ -38,7 +38,7 @@ void buildSceneObjects() {
     angZ=0.0f;	
 
 //	i = new Iman(100, 1, 2, 2);
-	h = new Hipotrocoide(50, 150);
+	h = new Hipotrocoide(20, 100);
 }
 
 void initGL() {	 		 
@@ -158,6 +158,8 @@ void key(unsigned char key, int x, int y){
 		case 'x': angY=angY-5; break;
 		case 'd': angZ=angZ+5; break;
 		case 'c': angZ=angZ-5; break;  
+		case 'g': h->cambiaModoRelleno(true); break;
+		case 'h': h->cambiaModoRelleno(false); break;
 		default:
 			need_redisplay = false;
 			break;

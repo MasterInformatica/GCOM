@@ -92,6 +92,10 @@ void Hipotrocoide::generaMalla(){
 	}
 }
 
+void Hipotrocoide::cambiaModoRelleno(bool modo){
+	this->modoRelleno = modo;
+}
+
 PuntoVector3D* Hipotrocoide::curva(float t){
 	float dif = a - b;
 
@@ -184,4 +188,22 @@ PuntoVector3D* Hipotrocoide::transformaPunto(PuntoVector3D* pto, float t){
 
 	delete [] frenet;
 	return new PuntoVector3D(trans[0], trans[1], trans[2], trans[3]);
+}
+
+void Hipotrocoide::dibuja(){
+	glColor3f(0.2f, 0.2f, 1.0f);
+
+	for (int i = 0; i < numeroCaras; i++){
+		if (this->modoRelleno)
+			glBegin(GL_POLYGON);
+		else
+			glBegin(GL_LINES);
+		for (int j = 0; j < cara[i]->getNumeroVertices(); j++){
+			int iN = cara[i]->getIndiceNormalK(j);
+			int iV = cara[i]->getIndiceVerticeK(j);
+			glNormal3f(normal[iN]->getX(), normal[iN]->getY(), normal[iN]->getZ());
+			glVertex3f(vertice[iV]->getX(), vertice[iV]->getY(), vertice[iV]->getZ());
+		}
+		glEnd();
+	}
 }
