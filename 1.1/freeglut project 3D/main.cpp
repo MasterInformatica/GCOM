@@ -7,6 +7,8 @@
 
 #include "Iman.h"
 #include "Hipotrocoide.h"
+#include "Bosque.h"
+#include "Coche.h"
 
 #include <iostream>
 using namespace std;
@@ -31,6 +33,9 @@ GLfloat angX, angY, angZ;
 
 Iman* i;
 Hipotrocoide* h;
+Bosque* b;
+Coche* c;
+
 
 void buildSceneObjects() {	 
     angX=0.0f;
@@ -38,7 +43,9 @@ void buildSceneObjects() {
     angZ=0.0f;	
 
 //	i = new Iman(100, 1, 2, 2);
-	h = new Hipotrocoide(20, 100);
+//	h = new Hipotrocoide(20, 100);
+//	b = new Bosque();
+	c = new Coche();
 }
 
 void initGL() {	 		 
@@ -76,6 +83,9 @@ void initGL() {
 
 	// Viewport set up
     glViewport(0, 0, WIDTH, HEIGHT);  	
+
+
+
  }
 
 void display(void) {
@@ -108,8 +118,9 @@ void display(void) {
 		// Drawing the scene	 		 
 		glColor3f(1.0, 1.0, 1.0);
 	//	i->dibuja();
-		h->dibuja();
-
+	//	h->dibuja();
+	//  b->dibuja();
+		c->dibuja();
 	glPopMatrix();
  
 	glFlush();
