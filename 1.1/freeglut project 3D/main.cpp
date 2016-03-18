@@ -171,6 +171,8 @@ void key(unsigned char key, int x, int y){
 		case 'c': angZ=angZ-5; break;  
 		case 'g': h->cambiaModoRelleno(true); break;
 		case 'h': h->cambiaModoRelleno(false); break;
+		case 'f': c->mover(1); break;
+		case 'v': c->mover(-1); break;
 		default:
 			need_redisplay = false;
 			break;

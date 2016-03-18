@@ -18,7 +18,7 @@ private:
 	float a, b, c;
 	int nP, nQ;
 
-	bool modoRelleno = true;
+	bool modoRelleno;
 
 	PuntoVector3D** perfil;
 

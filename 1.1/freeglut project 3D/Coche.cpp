@@ -1,33 +1,32 @@
 #include "Coche.h"
 
-#define PI 3.14159265359
 
-Coche::Coche()
-{
+Coche::Coche() {
 	this->altura = 5;
 	this->radio = this->altura / 3;
 	q = gluNewQuadric();
 	carroceria = new Cubo(this->altura);
-	desplazamiento_x = PI;
+	desplazamiento_x = 0;
 }
 
 
-Coche::~Coche()
-{
+Coche::~Coche() {
 	delete carroceria;
 	gluDeleteQuadric(q);
 }
 
 
-void Coche::mover(float x){
+void Coche::mover(float x) {
 	desplazamiento_x += x;
 }
 
-void Coche::dibuja(){
+
+void Coche::dibuja() {
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
+
 	//Mvto del coche entero
-	glTranslated(desplazamiento_x, 0, 0);
+	glTranslated(this->desplazamiento_x, 0, 0);
 
 	//carroceria
 	this->dibujaCarroceria();
@@ -38,39 +37,67 @@ void Coche::dibuja(){
 	this->dibujaRuedas();
 
 	glPopMatrix();
-
 }
 
-void Coche::dibujaCarroceria(){
+
+void Coche::dibujaCarroceria() {
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 
 	glTranslated(0.0f, this->altura / 2 + this->radio, 0.0f);
-	glColor3f(1.0f, 0.0f, 0.0f);
+	glColor3f(1.0f, 0.0f, 1.0f);
 	carroceria->dibuja();
 
 	glPopMatrix();
 }
 
 
-void Coche::dibujaLuces(){
+void Coche::dibujaLuces() {
+	glMatrixMode(GL_MODELVIEW);
+	glColor3f(0.1f, 0.4f, 1.0f);
+	
+	//mover delante y arriba (comuna a las dos luces)
+	glPushMatrix();
+	glTranslated(this->altura/2, 0.8*((this->altura)+(this->radio)), 0);
 
+	//Luz izq
+	glPushMatrix();
+	glTranslated(0.0f, 0.0f, 0.2*this->altura);
+	glRotated(90,0,1,0);
+	gluCylinder(this->q, 0.3*this->radio, 0.4*this->radio, 0.2*this->altura, 25, 25);
+
+	glPopMatrix();
+
+
+	//Luz dcha
+	glPushMatrix();
+	glTranslated(0.0f, 0.0f, -0.2*this->altura);
+	glRotated(90,0,1,0);
+	gluCylinder(this->q, 0.3*this->radio, 0.4*this->radio, 0.2*this->altura, 25, 25);
+
+	glPopMatrix();
+
+
+	glPopMatrix();
 }
 
 
-void Coche::dibujaRuedas(){
-	float theta = desplazamiento_x / (360.0*radio);
+void Coche::dibujaRuedas() {
+	float theta = (desplazamiento_x*360) / radio;
+	//Puede que así sea mejor
+	theta = desplazamiento_x * 15;
+	
 	float pos = altura / 2.0;
 	glMatrixMode(GL_MODELVIEW);
 
 
-	// rueda "alante" derecha
+	// rueda delantera derecha
 	glPushMatrix();
 	glColor3f(0, 0, 0);
 
 	glTranslated(pos, radio, pos);
 	gluCylinder(q, radio, radio, radio, 20, 20);
-	glTranslated(0, 0, radio);
+	glTranslated(0, 0, radio); //cubierta
 	glRotated(-theta, 0.0, 0.0, 1.0);
 	gluPartialDisk(q, 0, radio, 20, 20, 0.0, 340.0);
 
@@ -83,6 +110,7 @@ void Coche::dibujaRuedas(){
 	glTranslated(-pos, radio, pos);
 	gluCylinder(q, radio, radio, radio, 20, 20);
 	glTranslated(0, 0, radio);
+	glRotated(-theta, 0.0, 0.0, 1.0);
 	gluPartialDisk(q, 0, radio, 20, 20, 0.0, 340.0);
 
 	glPopMatrix();
@@ -94,6 +122,7 @@ void Coche::dibujaRuedas(){
 
 	glTranslated(pos, radio, -pos-radio);
 	gluCylinder(q, radio, radio, radio, 20, 20);
+	glRotated(-theta, 0.0, 0.0, 1.0);
 	gluPartialDisk(q, 0, radio, 20, 20, 0.0, 340.0);
 
 	glPopMatrix();
@@ -105,6 +134,7 @@ void Coche::dibujaRuedas(){
 
 	glTranslated(-pos, radio, -pos-radio);
 	gluCylinder(q, radio, radio, radio, 20, 20);
+	glRotated(-theta, 0.0, 0.0, 1.0);
 	gluPartialDisk(q, 0, radio, 20, 20, 0.0, 340.0);
 
 	glPopMatrix();
