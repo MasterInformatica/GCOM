@@ -3,7 +3,7 @@
 #include <gl/GLU.h>
 
 #include <GL/freeglut.h>
-//#include <GL/glut.h>
+
 
 #include "Iman.h"
 #include "Hipotrocoide.h"
@@ -12,10 +12,6 @@
 
 #include <iostream>
 using namespace std;
-
-// Freeglut parameters
-// Flag telling us to keep processing events
-// bool continue_in_main_loop= true; //(**)
 
 // Viewport size
 int WIDTH= 500, HEIGHT= 500;
@@ -31,21 +27,49 @@ GLdouble upX=0, upY=1, upZ=0;
 // Scene variables
 GLfloat angX, angY, angZ; 
 
+
+//--------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------
+// TIPOS PARA EJECUTAR LAS DIFERENTES PRACTICAS
+typedef enum {
+	IMAN,
+	HIPOTROCOIDE,
+	BOSQUE,
+	COCHE
+} Practicas;
+
+//=============================
+// CAMBIAR LA PRACTICA
+//=============================
+Practicas practica = Practicas::IMAN;
+
+
 Iman* i;
 Hipotrocoide* h;
 Bosque* b;
 Coche* c;
-
+//--------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------
 
 void buildSceneObjects() {	 
     angX=0.0f;
     angY=0.0f;
     angZ=0.0f;	
 
-//	i = new Iman(100, 1, 2, 2);
-//	h = new Hipotrocoide(20, 100);
-//	b = new Bosque();
-	c = new Coche();
+	switch (practica){
+	case IMAN:
+		i = new Iman(100, 1, 2, 2);
+		break;
+	case HIPOTROCOIDE:
+		h = new Hipotrocoide(20, 100);
+		break;
+	case BOSQUE:
+		b = new Bosque();
+		break;
+	case COCHE:
+		c = new Coche();
+		break;
+	}	
 }
 
 void initGL() {	 		 
@@ -117,10 +141,24 @@ void display(void) {
 		 		
 		// Drawing the scene	 		 
 		glColor3f(1.0, 1.0, 1.0);
-	//	i->dibuja();
-	//	h->dibuja();
-	//  b->dibuja();
-		c->dibuja();
+
+		//...........................................
+		switch (practica){
+		case IMAN:
+			i->dibuja();
+			break;
+		case HIPOTROCOIDE:
+			h->dibuja();
+			break;
+		case BOSQUE:
+			b->dibuja();
+			break;
+		case COCHE:
+			c->dibuja();
+			break;
+		}
+		//...........................................
+
 	glPopMatrix();
  
 	glFlush();
@@ -169,10 +207,22 @@ void key(unsigned char key, int x, int y){
 		case 'x': angY=angY-5; break;
 		case 'd': angZ=angZ+5; break;
 		case 'c': angZ=angZ-5; break;  
-		case 'g': h->cambiaModoRelleno(true); break;
-		case 'h': h->cambiaModoRelleno(false); break;
-		case 'f': c->mover(1); break;
-		case 'v': c->mover(-1); break;
+		case 'g': 
+			if(practica == Practicas::HIPOTROCOIDE) 
+				h->cambiaModoRelleno(true);
+			break;
+		case 'h': 
+			if (practica == Practicas::HIPOTROCOIDE)
+				h->cambiaModoRelleno(false); 
+			break;
+		case 'f': 
+			if (practica == Practicas::COCHE)
+				c->mover(1); 
+			break;
+		case 'v':
+			if (practica == Practicas::COCHE)
+				c->mover(-1); 
+			break;
 		default:
 			need_redisplay = false;
 			break;
@@ -182,8 +232,28 @@ void key(unsigned char key, int x, int y){
 		glutPostRedisplay();
 }
 
+void seleccionaPractica(){
+	cout << "Selecciona la practica a ejecutar: " << endl;
+	int s = -1;
+	while (s < 0 || s > 4){
+		cout << "\t0.- Iman" << endl;
+		cout << "\t1.- Hipotrocoide" << endl;
+		cout << "\t2.- Bosque" << endl;
+		cout << "\t3.- Coche" << endl;
+		cout << "-> ";
+		cin >> s;
+	}
+
+	practica = (Practicas)s;
+}
+
+
 int main(int argc, char *argv[]){
 	cout<< "Starting console..." << endl;
+
+	//.....................
+	seleccionaPractica();
+	//.....................
 
 	int my_window; // my window's identifier
 
@@ -220,3 +290,5 @@ int main(int argc, char *argv[]){
    
 	return 0;
 }
+
+

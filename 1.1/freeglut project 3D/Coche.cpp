@@ -54,7 +54,7 @@ void Coche::dibujaCarroceria() {
 
 void Coche::dibujaLuces() {
 	glMatrixMode(GL_MODELVIEW);
-	glColor3f(0.1f, 0.4f, 1.0f);
+	glColor3f(0.0f, 1.0f, 0.0f);
 	
 	//mover delante y arriba (comuna a las dos luces)
 	glPushMatrix();
@@ -83,9 +83,9 @@ void Coche::dibujaLuces() {
 
 
 void Coche::dibujaRuedas() {
-	float theta = (desplazamiento_x*360) / radio;
-	//Puede que así sea mejor
-	theta = desplazamiento_x * 15;
+	//float theta = (desplazamiento_x*360) / radio;
+	//Por cada desplazamiento_x, se gira 15 grados la rueda
+	float theta = desplazamiento_x * 15;
 	
 	float pos = altura / 2.0;
 	glMatrixMode(GL_MODELVIEW);

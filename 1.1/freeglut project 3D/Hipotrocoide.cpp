@@ -197,7 +197,7 @@ void Hipotrocoide::dibuja(){
 		if (this->modoRelleno)
 			glBegin(GL_POLYGON);
 		else
-			glBegin(GL_LINES);
+			glBegin(GL_LINE_LOOP);
 		for (int j = 0; j < cara[i]->getNumeroVertices(); j++){
 			int iN = cara[i]->getIndiceNormalK(j);
 			int iV = cara[i]->getIndiceVerticeK(j);
