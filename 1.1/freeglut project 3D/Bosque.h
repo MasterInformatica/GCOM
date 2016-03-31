@@ -8,6 +8,8 @@
 
 #include <GL/freeglut.h>
 
+/* Dibuja 4 tipos de árboles distintos y los coloca en la escena.
+ */
 class Bosque {
 public:
 	Bosque();

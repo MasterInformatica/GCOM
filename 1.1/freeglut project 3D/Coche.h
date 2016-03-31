@@ -10,6 +10,8 @@
 
 #define PI 3.14159265359
 
+/* Dibuja un coche en el origen compuesto por una carroceria (cubo), ruedas (cilindro + tapa), luces (cilindros).
+ */
 class Coche {
 public:
 	Coche();

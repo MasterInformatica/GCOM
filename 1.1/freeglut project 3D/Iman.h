@@ -3,6 +3,10 @@
 
 #include "Revolucion.h"
 
+/* Dibuja un imán compuesto por:
+ *   a) Un cuadrado revolucionado en el eje y, a través de la herencia de la clase Revolucion.
+ *   b) Dos punteros a los polos (Mallas).
+ */
 class Iman : public Revolucion{
 public:
 	Iman(int nQ, float rInt, float rExt, float h);

@@ -15,7 +15,7 @@ Iman::Iman(int nQ, float rInt, float rExt, float h){
 	//generamos los polos
 	int i = numeroVertices-1;
 	this->poloNorte = generaPolo(vertice[0], vertice[1], vertice[2], vertice[3], 2.5);
-	this->poloSur = generaPolo(vertice[i-2], vertice[i-3], vertice[i], vertice[i-1], 2.5); //comprobar este orden
+	this->poloSur = generaPolo(vertice[i-2], vertice[i-3], vertice[i], vertice[i-1], 2.5);
 }
 
 

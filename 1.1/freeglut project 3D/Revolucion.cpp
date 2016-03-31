@@ -1,6 +1,6 @@
 #include "Revolucion.h"
 
-
+//Realiza una copia del perfil.
 Revolucion::Revolucion(PuntoVector3D** perfil, int nPuntos){
 	this->nPuntosPerfil = nPuntos;
 

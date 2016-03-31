@@ -27,9 +27,8 @@ GLdouble upX=0, upY=1, upZ=0;
 // Scene variables
 GLfloat angX, angY, angZ; 
 
+//--------------------------------------------------------------------------------------------
 
-//--------------------------------------------------------------------------------------------
-//--------------------------------------------------------------------------------------------
 // TIPOS PARA EJECUTAR LAS DIFERENTES PRACTICAS
 typedef enum {
 	IMAN,
@@ -38,9 +37,6 @@ typedef enum {
 	COCHE
 } Practicas;
 
-//=============================
-// CAMBIAR LA PRACTICA
-//=============================
 Practicas practica = Practicas::IMAN;
 
 
@@ -48,8 +44,9 @@ Iman* i;
 Hipotrocoide* h;
 Bosque* b;
 Coche* c;
+
 //--------------------------------------------------------------------------------------------
-//--------------------------------------------------------------------------------------------
+
 
 void buildSceneObjects() {	 
     angX=0.0f;
@@ -58,7 +55,7 @@ void buildSceneObjects() {
 
 	switch (practica){
 	case IMAN:
-		i = new Iman(100, 1, 2, 2);
+		i = new Iman(100, 2, 5, 3);
 		break;
 	case HIPOTROCOIDE:
 		h = new Hipotrocoide(20, 100);
