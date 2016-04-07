@@ -1,0 +1,14 @@
+Práctica 1
+------------
+1- Pasar un quadric a modo armazon.
+se hace con-> gluQuadricDrawStyle (q, tipoDeRecubrimiento);
+
+2- Cambiar el color de los polos del Iman a verde.
+
+3- Colocar un arbol justo encima del otro.
+
+4- hacer un espejo del arbol.
+
+
+Práctica 2
+-----------
