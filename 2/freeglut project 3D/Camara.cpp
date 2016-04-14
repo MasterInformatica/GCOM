@@ -1,5 +1,6 @@
  
 #include "Camara.h"
+#include <cstdio>
 #include <cmath>
 
 Camara::Camara() {           
@@ -10,13 +11,15 @@ Camara::Camara() {
     left=-10; right=-left; bottom=-10; top=-bottom; 
 	Near=1; Far=1000;
 	fovy=5; aspect=2.5; 
-	  
+	velocidadGiro = 0.1;
 	setView();  
 	setProjection();
 	setCameraCoordinateSystem();		     
 }
 
 void Camara::setView() {
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 	//Define la matriz de vista con el comando gluLookAt()     
 	gluLookAt(this->eye->getX(), this->eye->getY(), this->eye->getZ(),
 			  this->look->getX(), this->look->getY(), this->look->getZ(),
@@ -60,15 +63,13 @@ void Camara::giraX() {
 	//Gira la cámara alrededor del eje X sobre un plano perpendicular a este eje
 	GLfloat r = sqrt(eye->getZ()*eye->getZ() + eye->getY()*eye->getY());
 	GLfloat theta = atan2(eye->getY(), eye->getZ());
-
+	printf("The arc tangent for (z=%f, y=%f) is %f degrees\n", eye->getZ(), eye->getY(), theta);
 	//incremento del angulo
 	theta += this->velocidadGiro;
 
 	//Calculo del nuevo eye
-	PuntoVector3D aux = eye->clonar();
-
-
-
+	eye->setY(r*sinf(theta));
+	eye->setZ(r*cosf(theta));
 
     setView();
     setCameraCoordinateSystem();     
@@ -76,12 +77,34 @@ void Camara::giraX() {
 
 void Camara::giraY() {
 	//Gira la cámara alrededor del eje Y sobre un plano perpendicular a este eje
-	//TO DO
+	GLfloat r = sqrt(eye->getZ()*eye->getZ() + eye->getX()*eye->getX());
+	GLfloat theta = atan2(eye->getX(), eye->getZ());
+
+	//incremento del angulo
+	theta += this->velocidadGiro;
+
+	//Calculo del nuevo eye
+	eye->setX(r*sinf(theta));
+	eye->setZ(r*cosf(theta));
+
+	setView();
+	setCameraCoordinateSystem();
 }
 
 void Camara::giraZ() {
 	//Gira la cámara alrededor del eje Z sobre un plano perpendicular a este eje
-	//TO DO
+	GLfloat r = sqrt(eye->getY()*eye->getY() + eye->getX()*eye->getX());
+	GLfloat theta = atan2(eye->getY(), eye->getX());
+
+	//incremento del angulo
+	theta += this->velocidadGiro;
+
+	//Calculo del nuevo eye
+	eye->setY(r*sinf(theta));
+	eye->setX(r*cosf(theta));
+
+	setView();
+	setCameraCoordinateSystem();
 }
 
 void Camara::lateral() {
