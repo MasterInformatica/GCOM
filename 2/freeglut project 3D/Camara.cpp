@@ -8,10 +8,12 @@ Camara::Camara() {
     look=new PuntoVector3D(0, 0, 0, 1);
     up=new PuntoVector3D(0, 1, 0, 0);
        
+	perspective = false;
+
     left=-10; right=-left; bottom=-10; top=-bottom; 
 	Near=1; Far=1000;
 	fovy=5; aspect=2.5; 
-	velocidadGiro = 0.1;
+	velocidadGiro = 0.05;
 	setView();  
 	setProjection();
 	setCameraCoordinateSystem();		     
@@ -44,11 +46,32 @@ void Camara::setCameraCoordinateSystem() {
 
 
 void Camara::setProjection() {
-	//Define la matriz de proyección con el comando 
-	//glOrtho() o glFrustum()/gluPerspective()	 
-	//TO DO		 
+	//OJO: este método no cambia de modo de perspectiva, solamente refresca la proyeccion
+
+	/* Notas al pie:
+	ORTOGONAL
+	  1) gluOrtho2D( left, right, bottom, top) es equivalente a glOrtho(left, right,  bottom, top, -1, 1);
+	  2) glOrtho(left, right, bottom, top, Near, Far); (cabecera de funcion)
+	PERSPECTIVA
+	  3) glFrustum(left, right, bottom, top, Near, Far); (cabecera de funcion)
+	  4) gluPerspective(fovy, aspect, near, far).
+	        Donde fovy es apertura en el eje v, y aspect la proporcion del plano cercano
+    */
+	glMatrixMode(GL_PROJECTION); 
+	glLoadIdentity();
+
+	if (this->perspective)
+		glFrustum(left, right, bottom, top, Near, Far);
+	else
+		glOrtho(left, right, bottom, top, Near, Far);
+	
 }
 
+
+void Camara::switchProjection(){
+	this->perspective = !this->perspective;
+	setProjection();
+}
 void Camara::setModelViewMatrix() {
     glMatrixMode(GL_MODELVIEW);		 
     GLfloat m[16];  
@@ -63,7 +86,9 @@ void Camara::giraX() {
 	//Gira la cámara alrededor del eje X sobre un plano perpendicular a este eje
 	GLfloat r = sqrt(eye->getZ()*eye->getZ() + eye->getY()*eye->getY());
 	GLfloat theta = atan2(eye->getY(), eye->getZ());
-	printf("The arc tangent for (z=%f, y=%f) is %f degrees\n", eye->getZ(), eye->getY(), theta);
+
+	//printf("The arc tangent for (z=%f, y=%f) is %f degrees\n", eye->getZ(), eye->getY(), theta);
+
 	//incremento del angulo
 	theta += this->velocidadGiro;
 
@@ -110,37 +135,165 @@ void Camara::giraZ() {
 void Camara::lateral() {
 	//Coloca la cámara de forma que se muestra una visión lateral 
 	//de la escena (desde el eje X) 
-	//TO DO
+	
+	//eye encima de look
+	eye->setY(look->getY());
+	eye->setX(look->getX() + 30);
+	eye->setZ(look->getZ());
+
+	//Up para que se vea.
+	up->setX(0.0f);
+	up->setY(1.0f);
+	up->setZ(0.0f);
+
+	setView();
+	setCameraCoordinateSystem();
 }
 
 void Camara::frontal() {
 	//Coloca la cámara de forma que se muestra una visión frontal 
 	//de la escena (desde el eje Z)  
-	//TO DO
+	//eye encima de look
+	eye->setY(look->getY());
+	eye->setX(look->getX());
+	eye->setZ(look->getZ() + 30);
+
+	//Up para que se vea.
+	up->setX(0.0f);
+	up->setY(1.0f);
+	up->setZ(0.0f);
+
+	setView();
+	setCameraCoordinateSystem();
 }
 
 void Camara::cenital() {
     //Coloca la cámara de forma que se muestra una visión cenital 
 	//de la escena (desde el eje Y) 
-	//TO DO
+	
+	//eye encima de look
+	eye->setY(look->getY() + 30);
+	eye->setX(look->getX());
+	eye->setZ(look->getZ());
+
+	//Up para que se vea.
+	up->setX(-1.0f);
+	up->setY(0.0f);
+	up->setZ(0.0f);
+
+	setView();
+	setCameraCoordinateSystem();
 }
 
 void Camara::rincon() {
     //Coloca la cámara de forma que se muestra
 	//la escena en un rincón
-	//TO DO
+
+	delete eye;
+	eye = new PuntoVector3D(30.0f, 30.0f, 30.0f, 1.0f);
+
+	delete look;
+	look = new PuntoVector3D(0.0f, 0.0f, 0.0f, 1.0f);
+
+	delete up;
+	up = new PuntoVector3D(0.0f, 1.0f, 0.0f, 0.0f);
+
+	setView();
+	setCameraCoordinateSystem();
 }
  
 void Camara::roll(float ang) {
-	//Rota la cámara tal como se explica en las transparencias
-	//TO DO	 
+	//Rotación sobre n = {u', v', n', e'}
+	//u' = cos(t)*u + sin(t)*v
+	//v' = -sin(t)*u + cos(t)*v;
+	//n' = n
+	//e' = e
+
+	GLfloat c = cos(ang);
+	GLfloat s = sin(ang);
+
+	PuntoVector3D *cu = u->clonar(), *su = u->clonar();
+	PuntoVector3D *cv = v->clonar(), *sv = v->clonar();
+
+	cu->escalar(c);
+	su->escalar(-1 * s);
+	cv->escalar(c);
+	sv->escalar(s);
+
+
+	delete u;
+	delete v;
+
+	u = cu; u->sumar(sv);
+	delete sv;
+
+	v = su; v->sumar(cv);
+	delete cv;
+
+
     setModelViewMatrix();
 }
 
 void Camara::pitch(float ang) {		
-    //TO DO
+	//Rotación sobre u = {u', v', n', e'}
+	//u' = u
+	//v' = cos(t)*v + sin(t)*n;
+	//n' = -sin(t)*v + cos(t)*n;
+	//e' = e
+
+	GLfloat c = cos(ang);
+	GLfloat s = sin(ang);
+
+	PuntoVector3D *cn = n->clonar(), *sn = n->clonar();
+	PuntoVector3D *cv = v->clonar(), *sv = v->clonar();
+
+	cn->escalar(c);
+	sn->escalar(s);
+	cv->escalar(c);
+	sv->escalar(-1*s);
+ 
+	delete n;
+	delete v;
+
+	n = cn; n->sumar(sv);
+	delete sv;
+
+	v = sn; v->sumar(cv);
+	delete cv;
+
+
+	setModelViewMatrix();
 }
 
 void Camara::yaw(float ang) {		
-    //TO DO
+
+	//Rotación sobre v = {u', v', n', e'}
+	//u' = cos(t)*u - sin(t)*n
+	//v' = v;
+	//n' = sin(t)*u + cos(t)*n;
+	//e' = e
+
+	GLfloat c = cos(ang);
+	GLfloat s = sin(ang);
+
+	PuntoVector3D *cn = n->clonar(), *sn = n->clonar();
+	PuntoVector3D *cu = u->clonar(), *su = u->clonar();
+
+	cn->escalar(c);
+	sn->escalar(-1*s);
+	cu->escalar(c);
+	su->escalar(s);
+
+	delete n;
+	delete u;
+
+	n = cn; n->sumar(su);
+	delete su;
+
+	u = cu; u->sumar(sn);
+	delete sn;
+
+
+	setModelViewMatrix();
+
 }

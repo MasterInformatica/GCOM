@@ -271,19 +271,19 @@ void key(unsigned char key, int x, int y){
 			break;
 		case 'p':
 			if (practica == Practicas::CAMARA)
-				cam->setProjection();
+				cam->switchProjection();
 			break;
 		case 'u':
 			if (practica == Practicas::CAMARA)
-				cam->roll(1.0); //TODO
+				cam->roll(0.05); //TODO
 			break;
 		case 'i':
 			if (practica == Practicas::CAMARA)
-				cam->yaw(1.0); //TODO
+				cam->yaw(0.05); //TODO
 			break;
 		case 'o':
 			if (practica == Practicas::CAMARA)
-				cam->pitch(1.0); //TODO
+				cam->pitch(0.05); //TODO
 			break;
 		case 'e':
 			if (practica == Practicas::CAMARA)
