@@ -32,6 +32,7 @@ class Camara {
 		void switchProjection();
 		void roll(float ang);
         void pitch(float ang);
-        void yaw(float ang);                
+        void yaw(float ang);    
+		void actualizaVolumenVista(GLdouble L, GLdouble R, GLdouble B, GLdouble T);
 };
 #endif

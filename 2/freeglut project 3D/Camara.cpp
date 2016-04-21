@@ -177,7 +177,7 @@ void Camara::cenital() {
 	eye->setZ(look->getZ());
 
 	//Up para que se vea.
-	up->setX(-1.0f);
+	up->setX(1.0f);
 	up->setY(0.0f);
 	up->setZ(0.0f);
 
@@ -296,4 +296,12 @@ void Camara::yaw(float ang) {
 
 	setModelViewMatrix();
 
+}
+
+void Camara::actualizaVolumenVista(GLdouble L, GLdouble R, GLdouble B, GLdouble T){
+	left = L;
+	right = R;
+	bottom = B;
+	top = T;
+	this->setProjection();
 }

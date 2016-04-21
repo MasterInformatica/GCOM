@@ -27,7 +27,7 @@ GLdouble upX=0, upY=1, upZ=0;
 
 // Scene variables
 GLfloat angX, angY, angZ; 
-
+bool baldosas = false;
 //--------------------------------------------------------------------------------------------
 
 // TIPOS PARA EJECUTAR LAS DIFERENTES PRACTICAS
@@ -117,61 +117,66 @@ void initGL() {
 
  }
 
-void display(void) {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);  
 
-	glMatrixMode(GL_MODELVIEW);	 
+
+void drawScene(){
+	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
-	
-		// Rotating the scene
-		glRotatef(angX, 1.0f, 0.0f, 0.0f);
-        glRotatef(angY, 0.0f, 1.0f, 0.0f);
-        glRotatef(angZ, 0.0f, 0.0f, 1.0f);
-		
-		glLineWidth(1.5f);
-		// Drawing axes
-		glBegin( GL_LINES );			
-			glColor3f(1.0,0.0,0.0); 
-			glVertex3f(0, 0, 0);
-			glVertex3f(20, 0, 0);	     
-	 
-			glColor3f(0.0,1.0,0.0); 
-			glVertex3f(0, 0, 0);
-			glVertex3f(0, 20, 0);	 
-	 
-			glColor3f(0.0,0.0,1.0); 
-			glVertex3f(0, 0, 0);
-			glVertex3f(0, 0, 20);	     
-		glEnd();
-		 		
-		// Drawing the scene	 		 
-		glColor3f(1.0, 1.0, 1.0);
 
-		//...........................................
-		switch (practica){
-		case IMAN:
-			i->dibuja();
-			break;
-		case HIPOTROCOIDE:
-			h->dibuja();
-			break;
-		case BOSQUE:
-			b->dibuja();
-			break;
-		case COCHE:
-			c->dibuja();
-			break;
-		case CAMARA:
-			b->dibuja();
-			break;
-		}
-		//...........................................
+	// Rotating the scene
+	glRotatef(angX, 1.0f, 0.0f, 0.0f);
+	glRotatef(angY, 0.0f, 1.0f, 0.0f);
+	glRotatef(angZ, 0.0f, 0.0f, 1.0f);
+
+	glLineWidth(1.5f);
+	// Drawing axes
+	glBegin(GL_LINES);
+	glColor3f(1.0, 0.0, 0.0);
+	glVertex3f(0, 0, 0);
+	glVertex3f(20, 0, 0);
+
+	glColor3f(0.0, 1.0, 0.0);
+	glVertex3f(0, 0, 0);
+	glVertex3f(0, 20, 0);
+
+	glColor3f(0.0, 0.0, 1.0);
+	glVertex3f(0, 0, 0);
+	glVertex3f(0, 0, 20);
+	glEnd();
+
+	// Drawing the scene	 		 
+	glColor3f(1.0, 1.0, 1.0);
+
+	//...........................................
+	switch (practica){
+	case IMAN:
+		i->dibuja();
+		break;
+	case HIPOTROCOIDE:
+		h->dibuja();
+		break;
+	case BOSQUE:
+		b->dibuja();
+		break;
+	case COCHE:
+		c->dibuja();
+		break;
+	case CAMARA:
+		b->dibuja();
+		break;
+	}
+	//...........................................
 
 	glPopMatrix();
- 
-	glFlush();
-	glutSwapBuffers();
 }
+
+
+void reset(){
+	angX = 0.0f;
+	angY = 0.0f;
+	angZ = 0.0f;
+}
+
 
 
 void resize(int newWidth, int newHeight) {
@@ -201,8 +206,70 @@ void resize(int newWidth, int newHeight) {
 	glOrtho(xLeft, xRight, yBot, yTop, N, F);
 }
 
+
+void zoom(float incr){
+	GLdouble fAux = 1 + incr;
+	GLdouble anchoNew = (xRight - xLeft) / fAux;
+	GLdouble altoNew = (yTop - yBot) / fAux;
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	GLdouble hmedio = (xRight - xLeft) / 2.0 + xLeft;
+	GLdouble vmedio = (yTop - yBot) / 2.0 + yBot;
+	xLeft = hmedio - anchoNew / 2.0;
+	xRight = hmedio + anchoNew / 2.0;
+	yBot = vmedio - altoNew / 2.0;
+	yTop = vmedio + altoNew / 2.0;
+
+	cam->actualizaVolumenVista(xLeft, xRight, yBot, yTop);
+
+}
+
+void embaldosar(int nCol){
+	GLdouble SVAratio = (xRight - xLeft) / (yTop - yBot);
+	GLdouble w = (GLdouble)WIDTH / (GLdouble)nCol;
+
+	//La altura de cada puerto se calcula proporcionalmente
+	GLdouble h = w / SVAratio;
+	int idx = 0;
+	for (GLint c = 0; c<nCol; c++){
+		GLdouble currentH = 0;
+		while ((currentH + h) <= HEIGHT){
+			glViewport((GLint)(c*w), (GLint)currentH, (GLint)w, (GLint)h);
+			switch (idx){
+			case 0:
+				cam->lateral();
+				break;
+			case 1:
+				cam->frontal();
+				break;
+			case 2:
+				cam->cenital();
+				break;
+			case 3:
+				cam->rincon();
+				
+				break;
+			default:
+				break;
+			}
+			drawScene();
+			currentH += h;
+			idx++;
+		}//while
+	}//for
+
+}
+
+void desembaldosar(){
+	glViewport(0, 0, WIDTH, HEIGHT);
+
+}
+
+
 void key(unsigned char key, int x, int y){
 	bool need_redisplay = true;
+	//a,z,s,x,d,c,g,h,f,v,p,u,i,o,b,e
 	switch (key) {
 		case 27:  /* Escape key */
 			//continue_in_main_loop = false; // (**)
@@ -221,9 +288,9 @@ void key(unsigned char key, int x, int y){
 			break;
 		case 'h': 
 			if (practica == Practicas::HIPOTROCOIDE)
-				h->cambiaModoRelleno(false); 
-			else if(practica == Practicas::CAMARA)
-				cam->giraX(); //TODO
+				h->cambiaModoRelleno(false);
+			else if (practica == Practicas::CAMARA)
+				zoom(-0.1);
 			break;
 		case 'f': 
 			if (practica == Practicas::COCHE)
@@ -263,11 +330,14 @@ void key(unsigned char key, int x, int y){
 			break;
 		case '8':
 			if (practica == Practicas::CAMARA)
-				cam->giraX(); //TODO
+				baldosas = true;
 			break;
 		case '9':
-			if (practica == Practicas::CAMARA)
-				cam->giraX(); //TODO
+			if (practica == Practicas::CAMARA){
+				if (baldosas)
+					desembaldosar();
+				baldosas = false;
+			}
 			break;
 		case 'p':
 			if (practica == Practicas::CAMARA)
@@ -275,19 +345,22 @@ void key(unsigned char key, int x, int y){
 			break;
 		case 'u':
 			if (practica == Practicas::CAMARA)
-				cam->roll(0.05); //TODO
+				cam->roll(0.05); 
 			break;
 		case 'i':
 			if (practica == Practicas::CAMARA)
-				cam->yaw(0.05); //TODO
+				cam->yaw(0.05); 
 			break;
 		case 'o':
 			if (practica == Practicas::CAMARA)
-				cam->pitch(0.05); //TODO
+				cam->pitch(0.05); 
 			break;
 		case 'e':
 			if (practica == Practicas::CAMARA)
-				cam->giraX(); //TODO
+				zoom(0.1);
+			break;
+		case 'r':
+			reset();
 			break;
 		default:
 			need_redisplay = false;
@@ -315,6 +388,18 @@ void seleccionaPractica(){
 }
 
 
+void display(void) {
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	if (baldosas)
+		embaldosar(2);
+	else
+		drawScene();
+
+	glFlush();
+	glutSwapBuffers();
+}
+
 int main(int argc, char *argv[]){
 	cout<< "Starting console..." << endl;
 
@@ -341,7 +426,6 @@ int main(int argc, char *argv[]){
 
 	// OpenGL basic setting
 	initGL();
-
 	// Freeglut's main loop can be stopped executing (**)
 	// while (continue_in_main_loop) glutMainLoopEvent();
 
