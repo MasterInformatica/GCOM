@@ -10,7 +10,7 @@
 #include "Bosque.h"
 #include "Coche.h"
 #include "Camara.h"
-
+#include "Cilindro.h"
 #include <iostream>
 using namespace std;
 
@@ -48,6 +48,7 @@ Hipotrocoide* h;
 Bosque* b;
 Coche* c;
 Camara* cam;
+Objeto3D* o3d;
 
 //--------------------------------------------------------------------------------------------
 
@@ -68,7 +69,7 @@ void buildSceneObjects() {
 		b = new Bosque();
 		break;
 	case COCHE:
-		c = new Coche();
+		o3d = new Cilindro(5,5,10);
 		break;
 	case CAMARA:
 		b = new Bosque();
@@ -159,7 +160,7 @@ void drawScene(){
 		b->dibuja();
 		break;
 	case COCHE:
-		c->dibuja();
+		o3d->dibuja();
 		break;
 	case CAMARA:
 		b->dibuja();

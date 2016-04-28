@@ -1,16 +1,20 @@
-#ifndef TAFIN_H_
-#define TAFIN_H_
-  // TODO revisar hecho con emacs
+#ifndef TAfin_H_
+#define TAfin_H_
 
 #include "PuntoVector3D.h"
 
 
 class TAfin {
- private:
-  GLfloat[16] m;
- public:
-  void traslada(PuntoVector3D* V);
-  void postmultiplica(GLfloat* m1);
-}
+private:
+  void postMultiplica(GLfloat* m1);
 
-#endif
+public:
+	TAfin();
+
+	GLfloat m[16];
+	void traslada(PuntoVector3D* v);
+	void gira(GLfloat ang, PuntoVector3D* v);
+	void escala(PuntoVector3D* v);
+};
+
+#endif //TAfin_H_

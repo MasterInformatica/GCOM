@@ -2,14 +2,14 @@
 #ifndef Cubo_H_
 #define Cubo_H_
 
-#include "Malla.h"
+#include "Objeto3D.h"
  
-class Cubo : public Malla {	 
+class Cubo : public Objeto3D {	 
     public:
-        Cubo(float size);
+        Cubo(GLfloat size);
         ~Cubo(); 
 		void dibuja();
-private:
-	float size;
+    private:
+		GLfloat size;
 };
 #endif

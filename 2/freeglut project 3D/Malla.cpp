@@ -39,16 +39,35 @@ int Malla::getNumeroCaras() {
 }
 
 void Malla::dibuja() {	 	 
-	for (int i=0; i<numeroCaras; i++) {		
-		glBegin(GL_POLYGON);			 
-		for (int j=0; j<cara[i]->getNumeroVertices(); j++) {
-			int iN=cara[i]->getIndiceNormalK(j);
-			int iV=cara[i]->getIndiceVerticeK(j);
-			glNormal3f(normal[iN]->getX(), normal[iN]->getY(), normal[iN]->getZ());            				 
-			glVertex3f(vertice[iV]->getX(), vertice[iV]->getY(), vertice[iV]->getZ());
+	glMatrixMode(GL_MODELVIEW);
+
+	glPushMatrix();
+	{
+		glColor3fv(this->color);
+		glMultMatrixf(this->mT->m);
+
+		for (int i = 0; i < numeroCaras; i++) {
+			switch (this->modo){
+			case ARMAZON:
+			case PUNTOS:
+				glBegin(GL_LINE_LOOP);
+				break;
+			case RELLENO:
+			default:
+				glBegin(GL_POLYGON);
+				break;
+			}
+
+			for (int j = 0; j < cara[i]->getNumeroVertices(); j++) {
+				int iN = cara[i]->getIndiceNormalK(j);
+				int iV = cara[i]->getIndiceVerticeK(j);
+				glNormal3f(normal[iN]->getX(), normal[iN]->getY(), normal[iN]->getZ());
+				glVertex3f(vertice[iV]->getX(), vertice[iV]->getY(), vertice[iV]->getZ());
+			}
+			glEnd();
 		}
-		glEnd();
-	}	 
+	}
+	glPopMatrix();
 }
 
  

@@ -1,21 +1,31 @@
-#ifndef OBJETO3D_H_
-#define OBJETO3D_H_
-  // TODO revisar hecho con emacs
+#ifndef Objeto3D_H_
+#define Objeto3D_H_
+
 
 #include "PuntoVector3D.h"
+#include "TAfin.h"
 
+
+enum ModoDibuja{
+	RELLENO,ARMAZON,PUNTOS
+};
 
 class Objeto3D {
-
- private:
-  TAfin* mT;
-  GLColor color;
+ protected:	
+	 TAfin *mT;
+	 GLfloat color[3] = { 0.5f, 0.5f, 0.5f };
+	 ModoDibuja modo = RELLENO;
 
  public:
-  virtual void dibuja();
-  void setColor(GLColor c);
-  GLColor getColor();
+	 Objeto3D();
+	 virtual ~Objeto3D();
 
-}
+	  virtual void dibuja()=0;
+	  virtual void setColor(GLfloat r, GLfloat g, GLfloat b);
+	  GLfloat* getColor();
+	  virtual void setModoDibuja(ModoDibuja m);
+	  ModoDibuja getModoDibuja(ModoDibuja m);
 
-#endif
+};
+
+#endif //Objeto3D_H_
