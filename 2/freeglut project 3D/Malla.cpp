@@ -44,7 +44,7 @@ void Malla::dibuja() {
 	glPushMatrix();
 	{
 		glColor3fv(this->color);
-		glMultMatrixf(this->mT->m);
+		glMultMatrixf(dameMatrizAfin());
 
 		for (int i = 0; i < numeroCaras; i++) {
 			switch (this->modo){

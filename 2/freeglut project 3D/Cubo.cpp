@@ -1,5 +1,5 @@
 #include "Cubo.h"
-
+#include <iostream>
 Cubo::Cubo(GLfloat size) {
 	this->size = size;
 }
@@ -13,7 +13,7 @@ void Cubo::dibuja() {
 	glPushMatrix();
 	{
 		glColor3fv(this->color);
-		glMultMatrixf(this->mT->m);
+		glMultMatrixf(dameMatrizAfin());
 		switch (this->modo){
 		case ARMAZON:
 		case PUNTOS:

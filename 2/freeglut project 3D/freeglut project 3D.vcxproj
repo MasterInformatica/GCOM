@@ -71,6 +71,7 @@
     <ClCompile Include="Cara.cpp" />
     <ClCompile Include="Cilindro.cpp" />
     <ClCompile Include="Coche.cpp" />
+    <ClCompile Include="CocheViejo.cpp" />
     <ClCompile Include="Cubo.cpp" />
     <ClCompile Include="CuboMallado.cpp" />
     <ClCompile Include="Disco.cpp" />
@@ -94,6 +95,7 @@
     <ClInclude Include="Cara.h" />
     <ClInclude Include="Cilindro.h" />
     <ClInclude Include="Coche.h" />
+    <ClInclude Include="CocheViejo.h" />
     <ClInclude Include="Cubo.h" />
     <ClInclude Include="CuboMallado.h" />
     <ClInclude Include="Disco.h" />

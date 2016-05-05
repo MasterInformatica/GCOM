@@ -1,37 +1,26 @@
 #ifndef Coche_H_
 #define Coche_H_
 
-#include <Windows.h>
-#include <gl/GL.h>
-#include <gl/GLU.h>
-#include <GL/freeglut.h>
-
-#include "Cubo.h"
-
-#define PI 3.14159265359
-
-/* Dibuja un coche en el origen compuesto por una carroceria (cubo), ruedas (cilindro + tapa), luces (cilindros).
- */
-class Coche {
+#include "ObjetoCompuesto.h"
+class Coche : public ObjetoCompuesto {
 public:
-	Coche();
+	Coche(GLfloat size);
 	~Coche();
-	void dibuja();
 	void mover(float x);
-
+	void girar(float x);
 private:
-	void dibujaLuces();
-	void dibujaRuedas();
-	void dibujaCarroceria();
+	GLfloat size;
+	GLfloat radioRuedas, anchoRuedas;
+	GLfloat radioFocos, anchoFocos;
+	int posRuedas[4];
+	GLfloat desplazamiento;
+	GLfloat giro;
+	GLfloat angRuedas;
 
+	Objeto3D* buildRueda();
+	Objeto3D* buildFaro();
+	
 
-	float altura;
-	float radio;
-
-
-	Cubo* carroceria;
-	GLUquadricObj* q;
-	float desplazamiento_x;
 };
 
 #endif //Coche_H_

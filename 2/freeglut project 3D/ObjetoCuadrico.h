@@ -7,7 +7,7 @@ class ObjetoCuadrico : public Objeto3D {
 public:
 	ObjetoCuadrico();
 	virtual ~ObjetoCuadrico();
-	virtual void dibuja();
+	virtual void dibuja()=0;
 protected:
 	GLUquadric *q;
 };

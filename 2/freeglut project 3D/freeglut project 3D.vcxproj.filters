@@ -42,9 +42,6 @@
     <ClCompile Include="Bosque.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Coche.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Cubo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -78,6 +75,12 @@
     <ClCompile Include="CuboMallado.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CocheViejo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Coche.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cara.h">
@@ -102,9 +105,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Bosque.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Coche.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Cubo.h">
@@ -138,6 +138,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="CuboMallado.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CocheViejo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Coche.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -20,7 +20,7 @@ void ObjetoCompuesto::dibuja(){
 	glMatrixMode(GL_MODELVIEW);
 	glPushMatrix();
 	{
-		glMultMatrixf(this->mT->m);
+		glMultMatrixf(dameMatrizAfin());
 		for (std::vector<Objeto3D*>::iterator it = this->elementos->begin(); it != this->elementos->end(); it++){
 			(*it)->dibuja();
 		}
@@ -43,4 +43,8 @@ void ObjetoCompuesto::setColor(GLfloat r, GLfloat g, GLfloat b){
 	for (std::vector<Objeto3D*>::iterator it = this->elementos->begin(); it != this->elementos->end(); it++){
 		(*it)->setColor(r, g, b);
 	}
+}
+
+void ObjetoCompuesto::introduceObjeto(Objeto3D* objeto) {
+	elementos->push_back(objeto);
 }

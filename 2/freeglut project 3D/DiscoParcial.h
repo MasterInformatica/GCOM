@@ -1,5 +1,5 @@
-#ifndef Disco_H_
-#define Disco_H_
+#ifndef DiscoParcial_H_
+#define DiscoParcial_H_
 
 #include "ObjetoCuadrico.h"
 class DiscoParcial : public ObjetoCuadrico {
@@ -19,4 +19,4 @@ private:
 
 };
 
-#endif //Disco_H_
+#endif //DiscoParcial_H_

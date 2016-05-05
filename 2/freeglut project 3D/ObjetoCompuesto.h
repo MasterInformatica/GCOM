@@ -11,6 +11,7 @@ public:
 	ObjetoCompuesto();
 	virtual ~ObjetoCompuesto();
 	virtual void dibuja();
+	void introduceObjeto(Objeto3D* objeto);
 	void setModoDibuja(ModoDibuja m);
 	void setColor(GLfloat r, GLfloat g, GLfloat b);
 };

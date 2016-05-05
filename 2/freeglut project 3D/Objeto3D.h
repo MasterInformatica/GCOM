@@ -12,8 +12,8 @@ enum ModoDibuja{
 
 class Objeto3D {
  protected:	
-	 TAfin *mT;
-	 GLfloat color[3] = { 0.5f, 0.5f, 0.5f };
+	 TAfin *matriz;
+	 GLfloat color[3] ;
 	 ModoDibuja modo = RELLENO;
 
  public:
@@ -21,10 +21,18 @@ class Objeto3D {
 	 virtual ~Objeto3D();
 
 	  virtual void dibuja()=0;
+	  void traslada(PuntoVector3D* punto);
+	  void traslada(GLfloat fX, GLfloat fY, GLfloat fZ);
+	  void escala(GLfloat fX, GLfloat fY, GLfloat fZ);
+	  void rota(GLfloat alfa, GLfloat fX, GLfloat fY, GLfloat fZ);
+	  GLfloat* dameMatrizAfin();
+	  
 	  virtual void setColor(GLfloat r, GLfloat g, GLfloat b);
 	  GLfloat* getColor();
 	  virtual void setModoDibuja(ModoDibuja m);
 	  ModoDibuja getModoDibuja(ModoDibuja m);
+
+
 
 };
 

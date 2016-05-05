@@ -6,15 +6,16 @@
 
 class TAfin {
 private:
-  void postMultiplica(GLfloat* m1);
-
+  GLfloat *m;
 public:
 	TAfin();
-
-	GLfloat m[16];
-	void traslada(PuntoVector3D* v);
-	void gira(GLfloat ang, PuntoVector3D* v);
-	void escala(PuntoVector3D* v);
+	~TAfin();
+	void traslada(GLfloat X, GLfloat Y, GLfloat Z);
+	void escala(GLfloat fX, GLfloat fY, GLfloat fZ);
+	void rota(GLfloat alfa, GLfloat fX, GLfloat fY, GLfloat fZ);
+	void postMultiplica(GLfloat* mm);
+	GLfloat* dameMatrizModelado();
+	
 };
 
 #endif //TAfin_H_

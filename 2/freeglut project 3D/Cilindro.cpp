@@ -19,7 +19,7 @@ void Cilindro::dibuja(){
 	glPushMatrix();
 	{
 		glColor3fv(this->color);
-		glMultMatrixf(this->mT->m);
+		glMultMatrixf(dameMatrizAfin());
 		switch (this->modo){
 		case ARMAZON:
 			gluQuadricDrawStyle(this->q, GLU_LINE);

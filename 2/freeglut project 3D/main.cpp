@@ -48,7 +48,7 @@ Hipotrocoide* h;
 Bosque* b;
 Coche* c;
 Camara* cam;
-Objeto3D* o3d;
+//xObjeto3D* o3d;
 
 //--------------------------------------------------------------------------------------------
 
@@ -69,7 +69,7 @@ void buildSceneObjects() {
 		b = new Bosque();
 		break;
 	case COCHE:
-		o3d = new Cilindro(5,5,10);
+		c = new Coche(3);
 		break;
 	case CAMARA:
 		b = new Bosque();
@@ -160,7 +160,7 @@ void drawScene(){
 		b->dibuja();
 		break;
 	case COCHE:
-		o3d->dibuja();
+		c->dibuja();
 		break;
 	case CAMARA:
 		b->dibuja();
@@ -293,13 +293,21 @@ void key(unsigned char key, int x, int y){
 			else if (practica == Practicas::CAMARA)
 				zoom(-0.1);
 			break;
-		case 'f': 
+		case 'f':
 			if (practica == Practicas::COCHE)
-				c->mover(1); 
+				c->mover(1);
 			break;
 		case 'v':
 			if (practica == Practicas::COCHE)
-				c->mover(-1); 
+				c->mover(-1);
+			break;
+		case 'F': 
+			if (practica == Practicas::COCHE)
+				c->girar(1); 
+			break;
+		case 'V':
+			if (practica == Practicas::COCHE)
+				c->girar(-1); 
 			break;
 		case '1':
 			if (practica == Practicas::CAMARA)
