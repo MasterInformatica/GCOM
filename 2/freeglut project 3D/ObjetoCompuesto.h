@@ -14,6 +14,7 @@ public:
 	void introduceObjeto(Objeto3D* objeto);
 	void setModoDibuja(ModoDibuja m);
 	void setColor(GLfloat r, GLfloat g, GLfloat b);
+
 };
 
 #endif //ObjetoCompuesto_H_

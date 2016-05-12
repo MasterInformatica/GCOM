@@ -36,7 +36,7 @@ typedef enum {
 	HIPOTROCOIDE,
 	BOSQUE,
 	COCHE,
-	CAMARA,
+	P2,
 	NONE
 } Practicas;
 
@@ -71,9 +71,10 @@ void buildSceneObjects() {
 	case COCHE:
 		c = new Coche(3);
 		break;
-	case CAMARA:
+	case P2:
 		b = new Bosque();
 		cam = new Camara();
+		c = new Coche(3);
 		break;
 	}	
 }
@@ -162,8 +163,9 @@ void drawScene(){
 	case COCHE:
 		c->dibuja();
 		break;
-	case CAMARA:
+	case P2:
 		b->dibuja();
+		c->dibuja();
 		break;
 	}
 	//...........................................
@@ -290,83 +292,85 @@ void key(unsigned char key, int x, int y){
 		case 'h': 
 			if (practica == Practicas::HIPOTROCOIDE)
 				h->cambiaModoRelleno(false);
-			else if (practica == Practicas::CAMARA)
-				zoom(-0.1);
 			break;
-		case 'f':
-			if (practica == Practicas::COCHE)
+		case 'm':
+			if (practica == Practicas::COCHE || practica == Practicas::P2)
 				c->mover(1);
 			break;
-		case 'v':
-			if (practica == Practicas::COCHE)
+		case 'n':
+			if (practica == Practicas::COCHE || practica == Practicas::P2)
 				c->mover(-1);
 			break;
 		case 'F': 
-			if (practica == Practicas::COCHE)
+			if (practica == Practicas::COCHE || practica == Practicas::P2)
 				c->girar(1); 
 			break;
 		case 'V':
-			if (practica == Practicas::COCHE)
+			if (practica == Practicas::COCHE || practica == Practicas::P2)
 				c->girar(-1); 
 			break;
 		case '1':
-			if (practica == Practicas::CAMARA)
+			if (practica == Practicas::P2)
 				cam->giraX();
 			break;
 		case '2':
-			if (practica == Practicas::CAMARA)
+			if (practica == Practicas::P2)
 				cam->giraY();
 			break;
 		case '3':
-			if (practica == Practicas::CAMARA)
+			if (practica == Practicas::P2)
 				cam->giraZ();
 			break;
 		case '4':
-			if (practica == Practicas::CAMARA)
+			if (practica == Practicas::P2)
 				cam->lateral();
 			break;
 		case '5':
-			if (practica == Practicas::CAMARA)
+			if (practica == Practicas::P2)
 				cam->frontal();
 			break;
 		case '6':
-			if (practica == Practicas::CAMARA)
+			if (practica == Practicas::P2)
 				cam->cenital();
 			break;
 		case '7':
-			if (practica == Practicas::CAMARA)
+			if (practica == Practicas::P2)
 				cam->rincon();
 			break;
 		case '8':
-			if (practica == Practicas::CAMARA)
+			if (practica == Practicas::P2)
 				baldosas = true;
 			break;
 		case '9':
-			if (practica == Practicas::CAMARA){
+			if (practica == Practicas::P2){
 				if (baldosas)
 					desembaldosar();
 				baldosas = false;
 			}
 			break;
 		case 'p':
-			if (practica == Practicas::CAMARA)
+			if (practica == Practicas::P2)
 				cam->switchProjection();
 			break;
-		case 'u':
-			if (practica == Practicas::CAMARA)
+		case 'q':
+			if (practica == Practicas::P2)
 				cam->roll(0.05); 
 			break;
-		case 'i':
-			if (practica == Practicas::CAMARA)
+		case 'w':
+			if (practica == Practicas::P2)
 				cam->yaw(0.05); 
 			break;
-		case 'o':
-			if (practica == Practicas::CAMARA)
+		case 'e':
+			if (practica == Practicas::P2)
 				cam->pitch(0.05); 
 			break;
-		case 'e':
-			if (practica == Practicas::CAMARA)
+		case 'i':
+			if (practica == Practicas::P2)
 				zoom(0.1);
+			break;
+		case 'k':
+			if (practica == Practicas::P2)
+				zoom(-0.1);
 			break;
 		case 'r':
 			reset();

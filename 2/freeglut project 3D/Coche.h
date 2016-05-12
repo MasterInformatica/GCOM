@@ -17,9 +17,6 @@ private:
 	GLfloat giro;
 	GLfloat angRuedas;
 
-	Objeto3D* buildRueda();
-	Objeto3D* buildFaro();
-	
 
 };
 

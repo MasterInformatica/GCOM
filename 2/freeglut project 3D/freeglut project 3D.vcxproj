@@ -77,6 +77,7 @@
     <ClCompile Include="Disco.cpp" />
     <ClCompile Include="DiscoParcial.cpp" />
     <ClCompile Include="Esfera.cpp" />
+    <ClCompile Include="Faro.cpp" />
     <ClCompile Include="Hipotrocoide.cpp" />
     <ClCompile Include="Iman.cpp" />
     <ClCompile Include="main.cpp" />
@@ -86,6 +87,7 @@
     <ClCompile Include="ObjetoCuadrico.cpp" />
     <ClCompile Include="PuntoVector3D.cpp" />
     <ClCompile Include="Revolucion.cpp" />
+    <ClCompile Include="Rueda.cpp" />
     <ClCompile Include="TAfin.cpp" />
     <ClCompile Include="VerticeNormal.cpp" />
   </ItemGroup>
@@ -101,6 +103,7 @@
     <ClInclude Include="Disco.h" />
     <ClInclude Include="DiscoParcial.h" />
     <ClInclude Include="Esfera.h" />
+    <ClInclude Include="Faro.h" />
     <ClInclude Include="Hipotrocoide.h" />
     <ClInclude Include="Iman.h" />
     <ClInclude Include="Malla.h" />
@@ -109,6 +112,7 @@
     <ClInclude Include="ObjetoCuadrico.h" />
     <ClInclude Include="PuntoVector3D.h" />
     <ClInclude Include="Revolucion.h" />
+    <ClInclude Include="Rueda.h" />
     <ClInclude Include="TAfin.h" />
     <ClInclude Include="VerticeNormal.h" />
   </ItemGroup>

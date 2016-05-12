@@ -81,6 +81,12 @@
     <ClCompile Include="Coche.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Rueda.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Faro.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cara.h">
@@ -144,6 +150,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Coche.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Rueda.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Faro.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
