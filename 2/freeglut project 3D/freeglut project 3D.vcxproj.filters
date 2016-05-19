@@ -39,9 +39,6 @@
     <ClCompile Include="Hipotrocoide.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Bosque.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Cubo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -87,6 +84,36 @@
     <ClCompile Include="Faro.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Abeto.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Tronco.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CopaArbol.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Alamo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Pino.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Roble.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BosqueViejo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Bosque.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Bombilla.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Farola.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cara.h">
@@ -108,9 +135,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Hipotrocoide.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Bosque.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Cubo.h">
@@ -156,6 +180,36 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Faro.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Abeto.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tronco.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CopaArbol.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Roble.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Alamo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pino.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BosqueViejo.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Bosque.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Bombilla.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Farola.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

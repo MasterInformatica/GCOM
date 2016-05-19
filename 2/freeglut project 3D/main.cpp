@@ -4,7 +4,7 @@
 
 #include <GL/freeglut.h>
 
-
+#include "Farola.h"
 #include "Iman.h"
 #include "Hipotrocoide.h"
 #include "Bosque.h"
@@ -48,8 +48,7 @@ Hipotrocoide* h;
 Bosque* b;
 Coche* c;
 Camara* cam;
-//xObjeto3D* o3d;
-
+Farola* f;
 //--------------------------------------------------------------------------------------------
 
 
@@ -57,7 +56,6 @@ void buildSceneObjects() {
     angX=0.0f;
     angY=0.0f;
     angZ=0.0f;	
-
 	switch (practica){
 	case IMAN:
 		i = new Iman(100, 2, 5, 3);
@@ -69,12 +67,27 @@ void buildSceneObjects() {
 		b = new Bosque();
 		break;
 	case COCHE:
-		c = new Coche(3);
+		c = new Coche(3,GL_LIGHT1,GL_LIGHT2);
 		break;
 	case P2:
 		b = new Bosque();
 		cam = new Camara();
-		c = new Coche(3);
+		c = new Coche(3, GL_LIGHT1, GL_LIGHT2);
+		f = new Farola(GL_LIGHT3);
+		f->traslada(-3.0f, 0.0f, -3.5f);
+
+		//Luz direccional escena
+		GLfloat pos[] = { 50.0f, 50.0f, 0.0f, 0.0f };
+		glLightfv(GL_LIGHT4, GL_POSITION, pos);
+		GLfloat color[] = { 1.0f, 1.0f, 0.0f, 1.0f };
+		glLightfv(GL_LIGHT4, GL_AMBIENT, color);
+		glLightfv(GL_LIGHT4, GL_DIFFUSE, color);
+		glLightfv(GL_LIGHT4, GL_SPECULAR, color);
+		
+		glLightf(GL_LIGHT4, GL_QUADRATIC_ATTENUATION, 1.0f);
+		glLightf(GL_LIGHT4, GL_LINEAR_ATTENUATION, 1.0f);
+		glLightf(GL_LIGHT4, GL_CONSTANT_ATTENUATION, 1.0f);
+
 		break;
 	}	
 }
@@ -87,20 +100,32 @@ void initGL() {
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_NORMALIZE);
 	glShadeModel(GL_SMOOTH); // Shading by default
+	
 
 	buildSceneObjects();
-
+	
 	// Light0
 	glEnable(GL_LIGHTING);  
     glEnable(GL_LIGHT0);
-    GLfloat d[]={0.7f,0.5f,0.5f,1.0f};
+    /*GLfloat d[]={0.7f,0.5f,0.5f,1.0f};
     glLightfv(GL_LIGHT0, GL_DIFFUSE, d);
     GLfloat a[]={0.3f,0.3f,0.3f,1.0f};
     glLightfv(GL_LIGHT0, GL_AMBIENT, a);
 	GLfloat s[]={1.0f,1.0f,1.0f,1.0f};
-    glLightfv(GL_LIGHT0, GL_SPECULAR, s);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, s);*/
+	GLfloat color[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, color);
+	glLightfv(GL_LIGHT0, GL_AMBIENT, color);
+	glLightfv(GL_LIGHT0, GL_SPECULAR, color);
+
 	GLfloat p[]={25.0f, 25.0f, 25.0f, 1.0f};	 
 	glLightfv(GL_LIGHT0, GL_POSITION, p);
+	
+	//Luz ambiente
+	GLfloat value[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, value);
+
+	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_FALSE);
 
 	// Camera set up
 	glMatrixMode(GL_MODELVIEW);
@@ -166,6 +191,7 @@ void drawScene(){
 	case P2:
 		b->dibuja();
 		c->dibuja();
+		f->dibuja();
 		break;
 	}
 	//...........................................
@@ -286,12 +312,16 @@ void key(unsigned char key, int x, int y){
 		case 'd': angZ=angZ+5; break;
 		case 'c': angZ=angZ-5; break;  
 		case 'g': 
-			if(practica == Practicas::HIPOTROCOIDE) 
+			if (practica == Practicas::HIPOTROCOIDE)
 				h->cambiaModoRelleno(true);
+			else if (practica == Practicas::P2)
+				c->apagaFoco();
 			break;
 		case 'h': 
 			if (practica == Practicas::HIPOTROCOIDE)
 				h->cambiaModoRelleno(false);
+			if (practica == Practicas::P2)
+				glDisable(GL_LIGHT4); // TODO 
 			break;
 		case 'm':
 			if (practica == Practicas::COCHE || practica == Practicas::P2)
@@ -372,8 +402,30 @@ void key(unsigned char key, int x, int y){
 			if (practica == Practicas::P2)
 				zoom(-0.1);
 			break;
-		case 'r':
+		case 'R':
 			reset();
+			break;
+		case 'u':
+			glEnable(GL_LIGHT0);
+			break;
+		case 'j':
+			glDisable(GL_LIGHT0);
+			break;
+		case 't':
+			if (practica == Practicas::P2)
+				c->enciedeFoco();
+			break;
+		case 'r':
+			if (practica == Practicas::P2)
+				f->enciende();
+			break;
+		case 'f':
+			if (practica == Practicas::P2)
+				f->apaga();
+			break;
+		case 'y':
+			if (practica == Practicas::P2)
+				glEnable(GL_LIGHT4);
 			break;
 		default:
 			need_redisplay = false;
@@ -392,7 +444,7 @@ void seleccionaPractica(){
 		cout << "\t1.- Hipotrocoide" << endl;
 		cout << "\t2.- Bosque" << endl;
 		cout << "\t3.- Coche" << endl;
-		cout << "\t4.- Camara" << endl;
+		cout << "\t4.- Practica 2" << endl;
 		cout << "-> ";
 		cin >> s;
 	}

@@ -1,6 +1,5 @@
 #include "Cilindro.h"
 
-
 Cilindro::Cilindro(GLfloat baseR, GLfloat topR, GLfloat altura, GLint slices, GLint stacks){
 	this->baseR = baseR;
 	this->topR = topR;
@@ -32,7 +31,6 @@ void Cilindro::dibuja(){
 			gluQuadricDrawStyle(this->q, GLU_FILL);
 			break;
 		}
-		
 		gluCylinder(this->q, baseR, topR, altura, slices, stacks);
 	}
 	glPopMatrix();

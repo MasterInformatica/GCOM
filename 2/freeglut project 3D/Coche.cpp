@@ -7,7 +7,7 @@
 #include "Rueda.h"
 #include "Faro.h"
 
-Coche::Coche(GLfloat size) {
+Coche::Coche(GLfloat size, GLenum idLuz1, GLenum idLuz2) {
 	this->desplazamiento = 0;
 	this->giro = 0;
 	this->angRuedas = 0;
@@ -17,11 +17,13 @@ Coche::Coche(GLfloat size) {
 	this->anchoRuedas = this->radioRuedas;
 	this->radioFocos = this->radioRuedas*0.4;
 	this->anchoFocos = this->size*0.2;
+//---------------------------------------------------------------------
+
 	//carroceria
 	Cubo *carroceria = new Cubo(this->size);
 	carroceria->setColor(1.0f, 0.0f, 1.0f);
 	carroceria->traslada(0.0f, radioRuedas+(size/2.0), 0.0f);
-	introduceObjeto(carroceria);
+	this->introduceObjeto(carroceria);
 	
 	// ruedas
 	Rueda* rueda;
@@ -53,19 +55,21 @@ Coche::Coche(GLfloat size) {
 	//faro
 	Faro* faro;
 	{	//derecho
-		faro = new Faro(radioFocos, 0.3f*radioFocos, anchoFocos);
+		faro = new Faro(idLuz1, radioFocos, 0.3f*radioFocos, anchoFocos);
 	
 		faro->traslada(0.5*size + anchoFocos/2.0, size, 0.3*size);
 		faro->rota(90.0f, 0.0f, 1.0f, 0.0f);
 
+		posFaros[0] = elementos->size();
 		introduceObjeto(faro);
 	}
 	{	//izquierdo
-		faro = new Faro(radioFocos , 0.3f*radioFocos, anchoFocos);
+		faro = new Faro(idLuz2, radioFocos, 0.3f*radioFocos, anchoFocos);
 
 		faro->traslada(0.5*size + anchoFocos / 2.0, size, -0.3*size);
 		faro->rota(90.0f, 0.0f, 1.0f, 0.0f);
 		
+		posFaros[1] = elementos->size();
 		introduceObjeto(faro);
 	}
 
@@ -89,13 +93,13 @@ void Coche::mover(float x) {
 	if (angRuedas > 0)
 		mv = size *-1.0;
 	float distCentro = sin(-andRd)*X / (sin(3.14 - (andRd * 2))) + mv;
-	traslada(0.0f, 0.0f, distCentro*(1 - (angRuedas/30.0)));
-	rota(x*angRuedas, 0.0f, 1.0f, 0.0f);
-	traslada(0.0f, 0.0f, -1.0*distCentro*(1 - (angRuedas / 30.0)));
-	traslada(X*cos(-1.0*andRd), 0.0f, X*sin(-1.0*andRd));
+	this->traslada(0.0f, 0.0f, distCentro*(1 - (angRuedas/30.0)));
+	this->rota(x*angRuedas, 0.0f, 1.0f, 0.0f);
+	this->traslada(0.0f, 0.0f, -1.0*distCentro*(1 - (angRuedas / 30.0)));
+	this->traslada(X*cos(-1.0*andRd), 0.0f, X*sin(-1.0*andRd));
 	//traslada(X,0.0f,0.0f); //sin giro, solo hacia delante
 	giro += angRuedas;
-	
+	//this->dibuja();
 }
 
 void Coche::girar(float x) {
@@ -119,4 +123,14 @@ void Coche::girar(float x) {
 
 Coche::~Coche() {
 
+}
+
+void Coche::enciedeFoco(){
+	for (int i = 0; i < 2; i++)
+		((Faro*)(elementos->at(this->posFaros[i])))->enciende();
+}
+
+void Coche::apagaFoco(){
+	for (int i = 0; i < 2; i++)
+		((Faro*)(elementos->at(this->posFaros[i])))->apaga();
 }

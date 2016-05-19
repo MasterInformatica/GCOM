@@ -66,18 +66,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Abeto.cpp" />
+    <ClCompile Include="Alamo.cpp" />
+    <ClCompile Include="Bombilla.cpp" />
     <ClCompile Include="Bosque.cpp" />
+    <ClCompile Include="BosqueViejo.cpp" />
     <ClCompile Include="Camara.cpp" />
     <ClCompile Include="Cara.cpp" />
     <ClCompile Include="Cilindro.cpp" />
     <ClCompile Include="Coche.cpp" />
     <ClCompile Include="CocheViejo.cpp" />
+    <ClCompile Include="CopaArbol.cpp" />
     <ClCompile Include="Cubo.cpp" />
     <ClCompile Include="CuboMallado.cpp" />
     <ClCompile Include="Disco.cpp" />
     <ClCompile Include="DiscoParcial.cpp" />
     <ClCompile Include="Esfera.cpp" />
     <ClCompile Include="Faro.cpp" />
+    <ClCompile Include="Farola.cpp" />
     <ClCompile Include="Hipotrocoide.cpp" />
     <ClCompile Include="Iman.cpp" />
     <ClCompile Include="main.cpp" />
@@ -85,35 +91,47 @@
     <ClCompile Include="Objeto3D.cpp" />
     <ClCompile Include="ObjetoCompuesto.cpp" />
     <ClCompile Include="ObjetoCuadrico.cpp" />
+    <ClCompile Include="Pino.cpp" />
     <ClCompile Include="PuntoVector3D.cpp" />
     <ClCompile Include="Revolucion.cpp" />
+    <ClCompile Include="Roble.cpp" />
     <ClCompile Include="Rueda.cpp" />
     <ClCompile Include="TAfin.cpp" />
+    <ClCompile Include="Tronco.cpp" />
     <ClCompile Include="VerticeNormal.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Abeto.h" />
+    <ClInclude Include="Alamo.h" />
+    <ClInclude Include="Bombilla.h" />
     <ClInclude Include="Bosque.h" />
+    <ClInclude Include="BosqueViejo.h" />
     <ClInclude Include="Camara.h" />
     <ClInclude Include="Cara.h" />
     <ClInclude Include="Cilindro.h" />
     <ClInclude Include="Coche.h" />
     <ClInclude Include="CocheViejo.h" />
+    <ClInclude Include="CopaArbol.h" />
     <ClInclude Include="Cubo.h" />
     <ClInclude Include="CuboMallado.h" />
     <ClInclude Include="Disco.h" />
     <ClInclude Include="DiscoParcial.h" />
     <ClInclude Include="Esfera.h" />
     <ClInclude Include="Faro.h" />
+    <ClInclude Include="Farola.h" />
     <ClInclude Include="Hipotrocoide.h" />
     <ClInclude Include="Iman.h" />
     <ClInclude Include="Malla.h" />
     <ClInclude Include="Objeto3D.h" />
     <ClInclude Include="ObjetoCompuesto.h" />
     <ClInclude Include="ObjetoCuadrico.h" />
+    <ClInclude Include="Pino.h" />
     <ClInclude Include="PuntoVector3D.h" />
     <ClInclude Include="Revolucion.h" />
+    <ClInclude Include="Roble.h" />
     <ClInclude Include="Rueda.h" />
     <ClInclude Include="TAfin.h" />
+    <ClInclude Include="Tronco.h" />
     <ClInclude Include="VerticeNormal.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
