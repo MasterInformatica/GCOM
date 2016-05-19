@@ -76,17 +76,7 @@ void buildSceneObjects() {
 		f = new Farola(GL_LIGHT3);
 		f->traslada(-3.0f, 0.0f, -3.5f);
 
-		//Luz direccional escena
-		GLfloat pos[] = { 50.0f, 50.0f, 0.0f, 0.0f };
-		glLightfv(GL_LIGHT4, GL_POSITION, pos);
-		GLfloat color[] = { 1.0f, 1.0f, 0.0f, 1.0f };
-		glLightfv(GL_LIGHT4, GL_AMBIENT, color);
-		glLightfv(GL_LIGHT4, GL_DIFFUSE, color);
-		glLightfv(GL_LIGHT4, GL_SPECULAR, color);
 		
-		glLightf(GL_LIGHT4, GL_QUADRATIC_ATTENUATION, 1.0f);
-		glLightf(GL_LIGHT4, GL_LINEAR_ATTENUATION, 1.0f);
-		glLightf(GL_LIGHT4, GL_CONSTANT_ATTENUATION, 1.0f);
 
 		break;
 	}	
@@ -106,26 +96,22 @@ void initGL() {
 	
 	// Light0
 	glEnable(GL_LIGHTING);  
-    glEnable(GL_LIGHT0);
-    /*GLfloat d[]={0.7f,0.5f,0.5f,1.0f};
+   /* glEnable(GL_LIGHT0);
+    GLfloat d[]={0.7f,0.5f,0.5f,1.0f};
     glLightfv(GL_LIGHT0, GL_DIFFUSE, d);
     GLfloat a[]={0.3f,0.3f,0.3f,1.0f};
     glLightfv(GL_LIGHT0, GL_AMBIENT, a);
 	GLfloat s[]={1.0f,1.0f,1.0f,1.0f};
-	glLightfv(GL_LIGHT0, GL_SPECULAR, s);*/
-	GLfloat color[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-	glLightfv(GL_LIGHT0, GL_DIFFUSE, color);
-	glLightfv(GL_LIGHT0, GL_AMBIENT, color);
-	glLightfv(GL_LIGHT0, GL_SPECULAR, color);
-
+	glLightfv(GL_LIGHT0, GL_SPECULAR, s);
+	
 	GLfloat p[]={25.0f, 25.0f, 25.0f, 1.0f};	 
 	glLightfv(GL_LIGHT0, GL_POSITION, p);
-	
+	*/
 	//Luz ambiente
 	GLfloat value[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, value);
 
-	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_FALSE);
+	//glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_FALSE);
 
 	// Camera set up
 	glMatrixMode(GL_MODELVIEW);
@@ -298,6 +284,8 @@ void desembaldosar(){
 
 void key(unsigned char key, int x, int y){
 	bool need_redisplay = true;
+	GLfloat value_off[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+	GLfloat value_on[] = { 0.8f, 0.8f, 0.8f, 1.0f };
 	//a,z,s,x,d,c,g,h,f,v,p,u,i,o,b,e
 	switch (key) {
 		case 27:  /* Escape key */
@@ -406,10 +394,10 @@ void key(unsigned char key, int x, int y){
 			reset();
 			break;
 		case 'u':
-			glEnable(GL_LIGHT0);
+			glLightModelfv(GL_LIGHT_MODEL_AMBIENT, value_on);
 			break;
 		case 'j':
-			glDisable(GL_LIGHT0);
+			glLightModelfv(GL_LIGHT_MODEL_AMBIENT, value_off);
 			break;
 		case 't':
 			if (practica == Practicas::P2)
@@ -460,6 +448,17 @@ void display(void) {
 		embaldosar(2);
 	else
 		drawScene();
+
+	//Luz direccional escena
+	GLfloat pos[] = { 25.0f, 25.0f, 0.0f, 0.0f };
+	glLightfv(GL_LIGHT4, GL_POSITION, pos);
+	GLfloat c0[] = { 0.4f, 0.4f, 0.0f, 1.0f };
+	glLightfv(GL_LIGHT4, GL_AMBIENT, c0);
+	GLfloat c1[] = { 0.4f, 0.4f, 0.0f, 1.0f };
+	glLightfv(GL_LIGHT4, GL_DIFFUSE, c1);
+	GLfloat c2[] = { 0.4f, 0.4f, 0.0f, 1.0f };
+	glLightfv(GL_LIGHT4, GL_SPECULAR, c2);
+
 
 	glFlush();
 	glutSwapBuffers();

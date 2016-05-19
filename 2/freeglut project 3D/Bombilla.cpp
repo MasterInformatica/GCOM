@@ -8,16 +8,21 @@ Bombilla::Bombilla(GLenum idLuz, GLfloat radius, GLint slices, GLint stacks) : E
 
 	//LUCES
 	glEnable(this->idLuz);
-
-	//Definir componentes del foco
-	GLfloat color[] = { 1.0f, 0.0f, 1.0f, 1.0f };
-	glLightfv(this->idLuz, GL_AMBIENT, color);
-	glLightfv(this->idLuz, GL_DIFFUSE, color);
-	glLightfv(this->idLuz, GL_SPECULAR, color);
-
-	//Definir posicion del foco
-	GLfloat pos[] = {0.0f, 0.0f, 0.0f, 1.0};
-	glLightfv(this->idLuz, GL_POSITION, pos);
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+	{
+		glLoadIdentity();
+		//Definir componentes del foco
+		GLfloat color[] = { 1.0f, 0.0f, 1.0f, 1.0f };
+		glLightfv(this->idLuz, GL_AMBIENT, color);
+		glLightfv(this->idLuz, GL_DIFFUSE, color);
+		glLightfv(this->idLuz, GL_SPECULAR, color);
+	}
+	glPopMatrix();
+		//Definir posicion del foco
+		GLfloat pos[] = { 0.0f, 0.0f, 0.0f, 1.0 };
+		glLightfv(this->idLuz, GL_POSITION, pos);
+	
 }
 
 void Bombilla::enciende(){

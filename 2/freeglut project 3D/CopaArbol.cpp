@@ -58,7 +58,7 @@ CopaArbol::CopaArbol(TipoCopa type, GLfloat radio, int stacks, int slices){
 		break;
 	}
 
-	this->setColor(0.0f, 1.0f, 0.6f);
+	this->setColor(0.0f, 0.8f, 0.6f);
 }
 
 
