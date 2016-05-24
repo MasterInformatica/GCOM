@@ -24,7 +24,7 @@ GLdouble xRight=10, xLeft=-xRight, yTop=10, yBot=-yTop, N=1, F=1000;
 GLdouble eyeX=100.0, eyeY=100.0, eyeZ=100.0;
 GLdouble lookX=0.0, lookY=0.0, lookZ=0.0;
 GLdouble upX=0, upY=1, upZ=0;
-
+float time_camara_hipotrocoide = 0.0;
 // Scene variables
 GLfloat angX, angY, angZ; 
 bool baldosas = false;
@@ -37,6 +37,7 @@ typedef enum {
 	BOSQUE,
 	COCHE,
 	P2,
+	CAMARAHIPO,
 	NONE
 } Practicas;
 
@@ -75,7 +76,9 @@ void buildSceneObjects() {
 		c = new Coche(3, GL_LIGHT1, GL_LIGHT2);
 		f = new Farola(GL_LIGHT3);
 		f->traslada(-3.0f, 0.0f, -3.5f);
-
+	case CAMARAHIPO:
+		cam = new Camara();
+		h = new Hipotrocoide(20, 100);
 		
 
 		break;
@@ -178,6 +181,9 @@ void drawScene(){
 		b->dibuja();
 		c->dibuja();
 		f->dibuja();
+	case CAMARAHIPO:
+		h->dibuja();
+		cam->setPositionView(h->curva(time_camara_hipotrocoide), h->primeraDerivada(time_camara_hipotrocoide));
 		break;
 	}
 	//...........................................
@@ -318,10 +324,14 @@ void key(unsigned char key, int x, int y){
 		case 'm':
 			if (practica == Practicas::COCHE || practica == Practicas::P2)
 				c->mover(1);
+			if (practica == Practicas::CAMARAHIPO)
+				time_camara_hipotrocoide += 0.1;
 			break;
 		case 'n':
 			if (practica == Practicas::COCHE || practica == Practicas::P2)
 				c->mover(-1);
+			if (practica == Practicas::CAMARAHIPO)
+				time_camara_hipotrocoide -= 0.1;
 			break;
 		case 'o':
 			if (practica == Practicas::P2)
@@ -441,6 +451,7 @@ void seleccionaPractica(){
 		cout << "\t2.- Bosque" << endl;
 		cout << "\t3.- Coche" << endl;
 		cout << "\t4.- Practica 2" << endl;
+		cout << "\t5.- Camara Hipo" << endl;
 		cout << "-> ";
 		cin >> s;
 	}

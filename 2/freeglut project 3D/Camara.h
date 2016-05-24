@@ -18,6 +18,8 @@ class Camara {
 
 		GLfloat velocidadGiro;
 
+		
+
 	public:				
 		Camara();		 
                                                                      
@@ -34,5 +36,6 @@ class Camara {
         void pitch(float ang);
         void yaw(float ang);    
 		void actualizaVolumenVista(GLdouble L, GLdouble R, GLdouble B, GLdouble T);
+		void setPositionView(PuntoVector3D* posicion, PuntoVector3D* direccionVista);
 };
 #endif

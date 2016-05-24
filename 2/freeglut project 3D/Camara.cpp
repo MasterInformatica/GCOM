@@ -305,3 +305,12 @@ void Camara::actualizaVolumenVista(GLdouble L, GLdouble R, GLdouble B, GLdouble 
 	top = T;
 	this->setProjection();
 }
+
+void Camara::setPositionView(PuntoVector3D* posicion, PuntoVector3D* direccionVista){
+	eye = posicion->clonar();
+	look = posicion->clonar();
+	look->sumar(direccionVista);
+
+	setView();
+	setCameraCoordinateSystem();
+}
