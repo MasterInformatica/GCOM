@@ -45,6 +45,11 @@ void ObjetoCompuesto::setColor(GLfloat r, GLfloat g, GLfloat b){
 	}
 }
 
+Objeto3D* ObjetoCompuesto::getElemeto(int i){
+	return this->elementos->at(i);
+
+}
+
 void ObjetoCompuesto::introduceObjeto(Objeto3D* objeto) {
 	elementos->push_back(objeto);
 }

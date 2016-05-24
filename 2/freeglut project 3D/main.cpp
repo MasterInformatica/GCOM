@@ -311,6 +311,10 @@ void key(unsigned char key, int x, int y){
 			if (practica == Practicas::P2)
 				glDisable(GL_LIGHT4); // TODO 
 			break;
+		case 'l':
+			if (practica == Practicas::P2)
+				b->cambiarMaterial(-0.1f);
+			break;
 		case 'm':
 			if (practica == Practicas::COCHE || practica == Practicas::P2)
 				c->mover(1);
@@ -318,6 +322,10 @@ void key(unsigned char key, int x, int y){
 		case 'n':
 			if (practica == Practicas::COCHE || practica == Practicas::P2)
 				c->mover(-1);
+			break;
+		case 'o':
+			if (practica == Practicas::P2)
+				b->cambiarMaterial(+0.1f);
 			break;
 		case 'F': 
 			if (practica == Practicas::COCHE || practica == Practicas::P2)
