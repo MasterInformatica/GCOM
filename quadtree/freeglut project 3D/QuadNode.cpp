@@ -6,7 +6,7 @@ QuadNode::QuadNode(GLfloat esquinaNOx, GLfloat esquinaNOz, GLfloat esquinaSEx, G
 	this->SE = NULL;
 	this->SO = NULL;
 
-	this->elementos = new std::vector<Objeto3D*>();
+	this->elementos = new std::vector<Arbol*>();
 
 	this->esquinaNOx = esquinaNOx;
 	this->esquinaNOz = esquinaNOz;
@@ -25,7 +25,10 @@ QuadNode::~QuadNode(){
 }
 
 
-void QuadNode::addElement(Objeto3D* obj, GLfloat posx, GLfloat posz){
+void QuadNode::addElement(Arbol* obj){
+	GLfloat posx = obj->getX();
+	GLfloat posz = obj->getZ();
+
 	if (!interseccionCilindro(obj->getRadio(), posx, posz))
 		return;
 
@@ -48,17 +51,17 @@ void QuadNode::addElement(Objeto3D* obj, GLfloat posx, GLfloat posz){
 								this->esquinaSEx, this->esquinaSEz);
 
 		//insertamos el nuevo elemento
-		this->NO->addElement(obj, posx, posz);
-		this->NE->addElement(obj, posx, posz);
-		this->SO->addElement(obj, posx, posz);
-		this->SE->addElement(obj, posx, posz);
+		this->NO->addElement(obj);
+		this->NE->addElement(obj);
+		this->SO->addElement(obj);
+		this->SE->addElement(obj);
 
-		for (std::vector<Objeto3D*>::iterator it = this->elementos->begin(); it != this->elementos->end(); it++){
+		for (std::vector<Arbol*>::iterator it = this->elementos->begin(); it != this->elementos->end(); it++){
 			//TODO: la posicion no está bien puesta
-			this->NO->addElement(*it, posx, posz);
-			this->NE->addElement(*it, posx, posz);
-			this->SO->addElement(*it, posx, posz);
-			this->SE->addElement(*it, posx, posz);
+			this->NO->addElement(*it);
+			this->NE->addElement(*it);
+			this->SO->addElement(*it);
+			this->SE->addElement(*it);
 		}
 
 		delete this->elementos; //OJO: espero que esto no destruya los elementos de dentro

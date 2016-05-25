@@ -8,7 +8,7 @@ public:
 	ObjetoCuadrico();
 	virtual ~ObjetoCuadrico();
 	virtual void dibuja()=0;
-	virtual GLfloat getRadio()=0;
+
 protected:
 	GLUquadric *q;
 };

@@ -8,7 +8,6 @@ public:
 	~Disco();
 
 	void dibuja();
-	virtual GLfloat getRadio();
 private:
 	GLfloat inR;
 	GLfloat outR;

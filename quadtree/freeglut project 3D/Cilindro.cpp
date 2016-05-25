@@ -13,9 +13,6 @@ Cilindro::~Cilindro()
 {
 }
 
-GLfloat Cilindro::getRadio(){
-	return (this->baseR > this->topR) ? this->baseR : this->topR;
-}
 
 
 void Cilindro::dibuja(){

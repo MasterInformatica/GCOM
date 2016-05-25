@@ -7,7 +7,7 @@ public:
 	~Esfera();
 
 	void dibuja();
-	virtual GLfloat getRadio();
+
 private:
 	GLfloat radius;
 	GLint slices;

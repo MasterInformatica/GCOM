@@ -8,9 +8,6 @@ Disco::Disco(GLfloat inR, GLfloat outR, GLint slices, GLint stacks){
 	this->stacks = stacks;
 }
 
-GLfloat Disco::getRadio(){
-	return this->outR;
-}
 
 Disco::~Disco()
 {

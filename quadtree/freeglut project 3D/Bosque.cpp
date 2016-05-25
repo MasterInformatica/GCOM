@@ -4,33 +4,44 @@
 #include "Pino.h"
 #include "Alamo.h"
 #include "CopaArbol.h"
+#include <time.h>
+
+const float Bosque::separacion = 3.0f;
 
 Bosque::Bosque(){
 	Objeto3D* obj;
+	GLfloat posx = 0 - (Bosque::numX / 2.0)*Bosque::separacion;
 	
-	obj = new Abeto();
-	obj->traslada(6.0, 0.0, 6.0);
-	this->introduceObjeto(obj);
+	srand(time(NULL));
 
-	obj = new Pino();
-	obj->traslada(6.0, 0.0, -6.0);
-	this->introduceObjeto(obj);
+	for (int i = 0; i < Bosque::numX; i++){
+		for (int j = 0; j < Bosque::numZ; j++){
+			//rand para ver si existe
+			if (rand() < 10) continue;
 
-	obj = new Roble();
-	obj->traslada(-6.0, 0.0, 6.0);
-	this->pos = this->elementos->size();
-	this->introduceObjeto(obj);
+			//rand para el tipo de elemnto
+			int elem = rand() % 4;
+			switch (elem){
+			case 0:
+				//abeto
+				obj = new Abeto(posx + (i*Bosque::separacion), -j*Bosque::separacion);
+				break;
+			case 1:
+				//roble
+				obj = new Roble(posx + (i*Bosque::separacion), -j*Bosque::separacion);
+				break;
+			case 2:
+				//pino
+				obj = new Pino(posx + (i*Bosque::separacion), -j*Bosque::separacion);
+				break;
+			case 3:
+				//alamo
+				obj = new Alamo(posx + (i*Bosque::separacion), -j*Bosque::separacion);
+				break;
+			}
+		}
+	}
 
-	obj = new Alamo();
-	obj->traslada(-6.0, 0.0, -6.0);
-	this->introduceObjeto(obj);
-}
-
-void Bosque::cambiarMaterial(GLfloat x){
-	// no existe el tipo arbol, por lo que asumimos que en 0 esta el tronco y en 1 la copa
-	ObjetoCompuesto*  obj = (ObjetoCompuesto *) this->elementos->at(this->pos);
-	CopaArbol* ca = (CopaArbol *)obj->getElemeto(1);
-	ca->cambiarMaterial(x);
 }
 
 Bosque::~Bosque(){

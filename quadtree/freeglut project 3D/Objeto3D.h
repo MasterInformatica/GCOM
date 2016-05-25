@@ -21,7 +21,7 @@ class Objeto3D {
 	 virtual ~Objeto3D();
 
 	  virtual void dibuja()=0;
-	  virtual GLfloat getRadio() = 0;
+
 
 	  void traslada(PuntoVector3D* punto);
 	  void traslada(GLfloat fX, GLfloat fY, GLfloat fZ);

@@ -5,15 +5,6 @@ ObjetoCompuesto::ObjetoCompuesto() {
 	this->elementos = new std::vector<Objeto3D*>();
 }
 
-GLfloat ObjetoCompuesto::getRadio(){
-	GLfloat ret = 0.0f;
-	for (std::vector<Objeto3D*>::iterator it = this->elementos->begin();
-		it != this->elementos->end(); it++){
-		ret = (ret > (*it)->getRadio()) ? ret : (*it)->getRadio();
-	}
-
-	return ret;
-}
 
 ObjetoCompuesto::~ObjetoCompuesto()
 {

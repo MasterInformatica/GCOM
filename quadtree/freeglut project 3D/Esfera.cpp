@@ -7,9 +7,6 @@ Esfera::Esfera(GLfloat radius, GLint slices, GLint stacks){
 	this->stacks = stacks;
 }
 
-GLfloat Esfera::getRadio(){
-	return this->radius;
-}
 
 Esfera::~Esfera()
 {

@@ -68,6 +68,7 @@
   <ItemGroup>
     <ClCompile Include="Abeto.cpp" />
     <ClCompile Include="Alamo.cpp" />
+    <ClCompile Include="Arbol.cpp" />
     <ClCompile Include="Bosque.cpp" />
     <ClCompile Include="Cilindro.cpp" />
     <ClCompile Include="CopaArbol.cpp" />
@@ -88,6 +89,7 @@
   <ItemGroup>
     <ClInclude Include="Abeto.h" />
     <ClInclude Include="Alamo.h" />
+    <ClInclude Include="Arbol.h" />
     <ClInclude Include="Bosque.h" />
     <ClInclude Include="Cilindro.h" />
     <ClInclude Include="CopaArbol.h" />

@@ -2,7 +2,10 @@
 #include "Tronco.h"
 #include "CopaArbol.h"
 
-Abeto::Abeto(GLfloat radioTronco , GLfloat alturaTronco, GLfloat radioCopa, int stacks, int slices){
+Abeto::Abeto(GLfloat posX, GLfloat posZ, GLfloat radioTronco, GLfloat alturaTronco, GLfloat radioCopa, int stacks, int slices){
+	this->posx = posX;
+	this->posz = posZ;
+
 	this->radioCopa = radioCopa;
 	this->radioTronco = radioTronco;
 	this->alturaTronco = alturaTronco;
@@ -18,5 +21,19 @@ Abeto::Abeto(GLfloat radioTronco , GLfloat alturaTronco, GLfloat radioCopa, int 
 	obj = new CopaArbol(TipoCopa::UnCono, radioCopa, stacks, slices);
 	obj->traslada(0.0f, alturaTronco, 0.0f);
 	this->introduceObjeto(obj);
+
+
+	this->traslada(posX, 0.0f, posZ);
 }
 
+
+GLfloat Abeto::getRadio(){
+	return (radioCopa > radioTronco) ? radioCopa : radioTronco;
+}
+
+GLfloat Abeto::getX(){
+	return this->posx;
+}
+GLfloat Abeto::getZ(){
+	return this->posz;
+}

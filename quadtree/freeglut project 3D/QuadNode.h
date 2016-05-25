@@ -4,6 +4,7 @@
 #include <vector>
 
 #include "Objeto3D.h"
+#include "Arbol.h"
 
 class QuadNode {
 public:
@@ -14,13 +15,13 @@ public:
 	QuadNode(GLfloat esquinaNOx, GLfloat esquinaNOz, GLfloat esquinaSEx, GLfloat esquinaSEz);
 	virtual ~QuadNode();
 
-	void addElement(Objeto3D* obj, GLfloat posx, GLfloat posz);
+	void addElement(Arbol* obj);
 
 private:
 	QuadNode(){}
 
 	QuadNode *NE, *NO, *SE, *SO; //Otros hijos
-	std::vector<Objeto3D*>* elementos; //por si guardamos los elementos en vez los hijos (nodo hoja)
+	std::vector<Arbol*>* elementos; //por si guardamos los elementos en vez los hijos (nodo hoja)
 	bool interseccionCilindro(GLfloat radio, GLfloat posx, GLfloat posz);
 
 	//Corrdenadas que describen al nodo

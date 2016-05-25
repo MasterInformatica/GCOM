@@ -8,7 +8,6 @@ public:
 
 	virtual ~Cilindro();
 	virtual void dibuja();
-	virtual GLfloat getRadio();
 
 private:
 	GLfloat baseR;

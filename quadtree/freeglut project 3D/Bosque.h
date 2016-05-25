@@ -6,7 +6,12 @@ class Bosque :	public ObjetoCompuesto {
 public:
 	Bosque();
 	~Bosque();
-	void cambiarMaterial(GLfloat x);
+
+	//NUMERO DE ARBOLES Y DEMAS HISTORIAS
+	static const int numX = 10;
+	static const int numZ = 10;
+	static const float separacion;
+
 private:
 	int pos;
 };

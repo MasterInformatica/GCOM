@@ -9,7 +9,7 @@ protected:
 	std::vector<Objeto3D*> *elementos;
 public:
 	ObjetoCompuesto();
-	virtual GLfloat getRadio();
+
 
 
 	virtual ~ObjetoCompuesto();
