@@ -9,9 +9,9 @@ public:
 	~Bosque();
 
 	//NUMERO DE ARBOLES Y DEMAS HISTORIAS
-	static const int numX = 99;
-	static const int numZ = 99;
-	static const float separacion;
+	 const int numX = 100;
+	 const int numZ = 100;
+	 const float separacion = 4.0f;
 
 	virtual void dibuja(GLfloat NOx, GLfloat NOz, GLfloat SEx, GLfloat SEz);
 	void cambiaQuad();

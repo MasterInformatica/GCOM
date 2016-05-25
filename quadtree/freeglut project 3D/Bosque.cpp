@@ -5,17 +5,19 @@
 #include "Alamo.h"
 #include "CopaArbol.h"
 #include <time.h>
+#include <iostream>
 
-const float Bosque::separacion = 4.0f;
+
 
 Bosque::Bosque(){
 
 	this->conQuad = false;
 
 	Arbol* obj;
-	GLfloat xInit = 0 - (Bosque::numX / 2.0)*Bosque::separacion;
-
-	this->quad = new QuadNode(-5000,-5000,5000,5000);
+	GLfloat xInit = 0 - (Bosque::numX / 2)*Bosque::separacion;
+	GLfloat x = (Bosque::numX / 2)*Bosque::separacion + 5;
+	GLfloat z = (Bosque::numZ / 2)*Bosque::separacion + 5;
+	this->quad = new QuadNode(-1.0*x,-1.0*z,x,4);
 	
 	srand(time(NULL));
 
@@ -45,6 +47,7 @@ Bosque::Bosque(){
 				break;
 			}
 			this->quad->addElement(obj);
+			this->introduceObjeto(obj);
 		}
 	}
 
@@ -52,13 +55,16 @@ Bosque::Bosque(){
 
 void Bosque::cambiaQuad(){
 	this->conQuad = !this->conQuad;
+
+	std::cout << "El quad esta " << ((this->conQuad) ? "activado" : "desactivado") << std::endl;
 }
 
 void Bosque::dibuja(GLfloat NOx, GLfloat NOz, GLfloat SEx, GLfloat SEz){
 	if (this->conQuad)
+	//	this->quad->dibuja();
 		this->quad->dibuja(NOx, NOz, SEx, SEz);
 	else
-		this->quad->dibuja();
+		ObjetoCompuesto::dibuja();
 }
 
 Bosque::~Bosque(){

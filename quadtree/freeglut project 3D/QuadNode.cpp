@@ -1,6 +1,7 @@
 #include "QuadNode.h"
 #include <algorithm>
 #include <math.h>
+#include <iostream>
 
 QuadNode::QuadNode(GLfloat esquinaNOx, GLfloat esquinaNOz, GLfloat esquinaSEx, GLfloat esquinaSEz){
 	this->NE = NULL;
@@ -39,19 +40,26 @@ bool QuadNode::addElement(Arbol* obj){
 
 	if (!interseccionCilindro(obj->getRadio(), posx, posz))
 		return false;
+	
 
 
 	if (this->elementos!=NULL && this->elementos->size() < QuadNode::MAXELEMS){ //todavía entra
 		this->elementos->push_back(obj);
 	}
 	else if (this->elementos == NULL) { //insertamos en los hijos
-		return (this->NO->addElement(obj) || this->NE->addElement(obj) || this->SO->addElement(obj) || this->SE->addElement(obj));
+		if (this->NO->addElement(obj) || this->NE->addElement(obj) || this->SO->addElement(obj) || this->SE->addElement(obj))
+			return true;
+		else{
+			std::cout << "NO INSERTO EL OBJETO DE CENTRO " << obj->getX() << " , " << obj->getZ() << std::endl;
+			return false;
+		}
 			
 	}
 	else{
-		GLfloat sizex = abs(this->esquinaSEx - this->esquinaNOx);
-		GLfloat sizez = abs(this->esquinaSEz - this->esquinaNOz);
-
+		GLfloat sizex = (this->esquinaSEx - this->esquinaNOx);
+		GLfloat sizez = (this->esquinaSEz - this->esquinaNOz);
+		if (sizex < 1e-9 || sizez < 1e-9)
+			std::cout << "SOY DEMASIADO PEQUEÑO PARA TENER NADA" << std::endl;
 		//creamos los nodos, y vaciamos nuestros elementos en los hijos
 		this->NO = new QuadNode(this->esquinaNOx, 
 								this->esquinaNOz,
@@ -77,9 +85,12 @@ bool QuadNode::addElement(Arbol* obj){
 		//insertamos el nuevo elemento
 		
 		for (std::vector<Arbol*>::iterator it = this->elementos->begin(); it != this->elementos->end(); it++){
-			//TODO: la posicion no está bien puesta
 			if (this->NO->addElement(*it) || this->NE->addElement(*it) || this->SO->addElement(*it) || this->SE->addElement(*it))
 				continue;
+			else{
+				std::cout << "NO INSERTO EL OBJETO DE CENTRO " << (*it)->getX() << " , " << (*it)->getZ() << std::endl;
+				continue;
+			}
 		}
 
 		//delete this->elementos; //OJO: espero que esto no destruya los elementos de dentro
@@ -89,11 +100,22 @@ bool QuadNode::addElement(Arbol* obj){
 }
 
 bool QuadNode::interseccionCilindro(GLfloat radio, GLfloat posx, GLfloat posz){
+	GLfloat xN, zN, xS, zS;
+	xN = posx - radio;
+	zN = posz - radio;
+	
+	xS = posx + radio;
+	zS = posz + radio;
+
+	int r = this->intersecaRectangulo(xN, zN, xS, zS);
+
+	return (r >= 0); //dentro o interseccion)
+	/*float eps = 1e-6;
 	//Comprobamos que estamos en los bordes
-	if ((posz + radio) >= this->esquinaNOz 
-		&& (posx - radio) <= this->esquinaSEx
-		&& (posz - radio) <= this->esquinaSEz
-		&&(posx + radio) >= this->esquinaNOx) return true; //izq
+	if ((posz + radio + eps) >= this->esquinaNOz 
+		&& (posx - radio - eps) <= this->esquinaSEx
+		&& (posz - radio - eps) <= this->esquinaSEz
+		&& (posx + radio + eps) >= this->esquinaNOx) return true; //izq
 
 	//podemos estar en las esquinas
 	if (sqrt((posx - this->esquinaNOx)*(posx - this->esquinaNOx) + 
@@ -105,21 +127,20 @@ bool QuadNode::interseccionCilindro(GLfloat radio, GLfloat posx, GLfloat posz){
 	if (sqrt((posx - this->esquinaSEz)*(posx - this->esquinaSEz) +
 		(posz - this->esquinaSEz)*(posz - this->esquinaSEz)) <= radio) return true;  //esquina Se
 
-	return false;
+	return false;*/
 }
 
 void QuadNode::dibuja(){
+	if (this->NO != NULL) this->NO->dibuja();
+	if (this->NE != NULL) this->NE->dibuja();
+	if (this->SO != NULL) this->SO->dibuja();
+	if (this->SE != NULL) this->SE->dibuja();
 	if (this->elementos != NULL){
 		for (std::vector<Arbol*>::iterator it = this->elementos->begin();
 			it != this->elementos->end(); it++)
 			(*it)->dibuja();
 	}
-	else {
-		if (this->NO != NULL) this->NO->dibuja();
-		if (this->NE != NULL) this->NE->dibuja();
-		if (this->SO != NULL) this->SO->dibuja();
-		if (this->SE != NULL) this->SE->dibuja();
-	}
+
 }
 
 void QuadNode::dibuja(GLfloat NOx, GLfloat NOz, GLfloat SEx, GLfloat SEz){
@@ -144,7 +165,6 @@ void QuadNode::dibuja(GLfloat NOx, GLfloat NOz, GLfloat SEx, GLfloat SEz){
 	}
 	else //no interseco
 		return;
-
 }
 
 /* Devuelve:

@@ -116,9 +116,45 @@ void drawScene(){
 	glColor3f(1.0, 1.0, 1.0);
 
 	//...........................................
+	GLfloat xA, xB, xC, xD;
+	GLfloat zA, zB, zC, zD;
+
+	PuntoVector3D* EYE = new PuntoVector3D(eyeX, 0.0f, eyeZ, 1.0f);
+	//PuntoVector3D* LOOK = new PuntoVector3D(lookX, 0.0f, lookZ, 1.0f);
+	PuntoVector3D* dir = new PuntoVector3D(lookX - eyeX, 0.0f, lookZ - eyeZ, 0.0f); dir->normalizar();
+
+	PuntoVector3D* perpen = new PuntoVector3D(-1.0*dir->getZ(), 0.0f, dir->getX(), 0.0f);
+	perpen->escalar((xRight - xLeft) / 2.0f);
 	
-	b->dibuja(min(xRight, xLeft), min(eyeZ - F, eyeZ - N),
-		max(xRight, xLeft), max(eyeZ - F, eyeZ - N));
+	//aux centro del plano cercano
+	PuntoVector3D* aux = dir->clonar();
+	aux->escalar(N);
+	aux->sumar(EYE);
+	
+	xA = aux->getX() + perpen->getX();
+	zA = aux->getZ() + perpen->getZ();
+	xD = aux->getX() - perpen->getX();
+	zD = aux->getZ() - perpen->getZ();
+	delete aux;
+	//aux centro del plano lejano
+	aux = dir->clonar();
+	aux->escalar(F);
+	aux->sumar(EYE);
+	xB = aux->getX() + perpen->getX();
+	zB = aux->getZ() + perpen->getZ();
+	xC = aux->getX() - perpen->getX();
+	zC = aux->getZ() - perpen->getZ();
+
+	delete aux;
+	delete EYE;
+	delete dir;
+	delete perpen;
+
+	b->dibuja(min(xA, min(xB, min(xC, xD))),
+			  min(zA, min(zB, min(zC, zD))),
+			  max(xA, max(xB, max(xC, xD))),
+			  max(zA, max(zB, max(zC, zD)))
+			  );
 	//...........................................
 
 	glPopMatrix();

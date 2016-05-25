@@ -9,7 +9,7 @@
 class QuadNode {
 public:
 	//----------------------------
-	static const int MAXELEMS = 3;
+	const int MAXELEMS = 2;
 	//----------------------------
 
 	QuadNode(GLfloat esquinaNOx, GLfloat esquinaNOz, GLfloat esquinaSEx, GLfloat esquinaSEz);
