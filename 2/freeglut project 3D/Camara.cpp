@@ -2,7 +2,7 @@
 #include "Camara.h"
 #include <cstdio>
 #include <cmath>
-
+#include <iostream>
 Camara::Camara() {           
 	eye=new PuntoVector3D(30, 30, 30, 1);
     look=new PuntoVector3D(0, 0, 0, 1);
@@ -307,10 +307,17 @@ void Camara::actualizaVolumenVista(GLdouble L, GLdouble R, GLdouble B, GLdouble 
 }
 
 void Camara::setPositionView(PuntoVector3D* posicion, PuntoVector3D* direccionVista){
-	eye = posicion->clonar();
-	look = posicion->clonar();
-	look->sumar(direccionVista);
+	eye->setX(posicion->getX());
+	eye->setY(posicion->getY());
+	eye->setZ(posicion->getZ());
+	look->setX(/*posicion->getX() + */direccionVista->getX());
+	look->setY(/*posicion->getY() + */direccionVista->getY());
+	look->setZ(/*posicion->getZ() + */direccionVista->getZ());
 
+	//Up para que se vea.
+	up->setX(0.0f);
+	up->setY(1.0f);
+	up->setZ(0.0f);
 	setView();
 	setCameraCoordinateSystem();
 }

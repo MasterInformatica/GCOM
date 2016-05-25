@@ -109,7 +109,7 @@ PuntoVector3D* Hipotrocoide::curva(float t){
 		0,
 		dif*sin1 - c*sin2,
 		1);
-	//return new PuntoVector3D(3*cos1, 0, sin1,1);
+	//return new PuntoVector3D(cos1, 0, sin1,1);
 }
 
 PuntoVector3D* Hipotrocoide::primeraDerivada(float t){
@@ -125,7 +125,7 @@ PuntoVector3D* Hipotrocoide::primeraDerivada(float t){
 		 0,  
 		 dif*cos1 - c*cos2*dif / b,
 		 0 );
-	//return new PuntoVector3D(-3*sin1, 0.0, cos1,0);
+	//return new PuntoVector3D(-1.0f*sin1, 0.0f, cos1,0);
 }
 
 PuntoVector3D* Hipotrocoide::segundaDerivada(float t){
@@ -191,9 +191,13 @@ PuntoVector3D* Hipotrocoide::transformaPunto(PuntoVector3D* pto, float t){
 }
 
 void Hipotrocoide::dibuja(){
-	glColor3f(0.2f, 0.2f, 1.0f);
+	
 
 	for (int i = 0; i < numeroCaras; i++){
+		if ((i/this->nQ)%2)
+			glColor3f(0.2f, 0.2f, 1.0f);
+		else
+			glColor3f(0.2f, 1.0f, 0.2f);
 		if (this->modoRelleno)
 			glBegin(GL_POLYGON);
 		else

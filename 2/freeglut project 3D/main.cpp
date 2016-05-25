@@ -76,11 +76,14 @@ void buildSceneObjects() {
 		c = new Coche(3, GL_LIGHT1, GL_LIGHT2);
 		f = new Farola(GL_LIGHT3);
 		f->traslada(-3.0f, 0.0f, -3.5f);
+		break;
 	case CAMARAHIPO:
 		cam = new Camara();
 		h = new Hipotrocoide(20, 100);
+		time_camara_hipotrocoide = 0.0f;
+		cam->setPositionView(h->curva(time_camara_hipotrocoide), h->primeraDerivada(time_camara_hipotrocoide));
+		xRight = 0.5; xLeft = -xRight; yTop = 0.5, yBot = -yTop, N = 1, F = 10;
 		
-
 		break;
 	}	
 }
@@ -117,19 +120,20 @@ void initGL() {
 	//glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_FALSE);
 
 	// Camera set up
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	gluLookAt(eyeX, eyeY, eyeZ, lookX, lookY, lookZ, upX, upY, upZ);
-
+	if (practica == Practicas::CAMARAHIPO)
+		cam->setPositionView(h->curva(time_camara_hipotrocoide), h->primeraDerivada(time_camara_hipotrocoide));
+	else{
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+		gluLookAt(eyeX, eyeY, eyeZ, lookX, lookY, lookZ, upX, upY, upZ);
+	}
 	// Frustum set up
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();     
 	glOrtho(xLeft, xRight, yBot, yTop, N, F);
 
 	// Viewport set up
-    glViewport(0, 0, WIDTH, HEIGHT);  	
-
-
+    glViewport(0, 0, WIDTH, HEIGHT);
 
  }
 
@@ -181,9 +185,9 @@ void drawScene(){
 		b->dibuja();
 		c->dibuja();
 		f->dibuja();
+		break;
 	case CAMARAHIPO:
 		h->dibuja();
-		cam->setPositionView(h->curva(time_camara_hipotrocoide), h->primeraDerivada(time_camara_hipotrocoide));
 		break;
 	}
 	//...........................................
@@ -198,35 +202,32 @@ void reset(){
 	angZ = 0.0f;
 }
 
-
-
 void resize(int newWidth, int newHeight) {
-	WIDTH= newWidth;
-	HEIGHT= newHeight;
-	GLdouble RatioViewPort= (float)WIDTH/(float)HEIGHT;
-	glViewport (0, 0, WIDTH, HEIGHT) ;
-   
-	GLdouble SVAWidth= xRight-xLeft;
-	GLdouble SVAHeight= yTop-yBot;
-	GLdouble SVARatio= SVAWidth/SVAHeight;
-	if (SVARatio >= RatioViewPort) {		 
-		GLdouble newHeight= SVAWidth/RatioViewPort;
-		GLdouble yMiddle= ( yBot+yTop )/2.0;
-		yTop= yMiddle + newHeight/2.0;
-		yBot= yMiddle - newHeight/2.0;
-    }
-	else {      
-		GLdouble newWidth= SVAHeight*RatioViewPort;
-		GLdouble xMiddle= ( xLeft+xRight )/2.0;
-		xRight= xMiddle + newWidth/2.0;
-		xLeft=  xMiddle - newWidth/2.0;
+	WIDTH = newWidth;
+	HEIGHT = newHeight;
+	GLdouble RatioViewPort = (float)WIDTH / (float)HEIGHT;
+	glViewport(0, 0, WIDTH, HEIGHT);
+
+	GLdouble SVAWidth = xRight - xLeft;
+	GLdouble SVAHeight = yTop - yBot;
+	GLdouble SVARatio = SVAWidth / SVAHeight;
+	if (SVARatio >= RatioViewPort) {
+		GLdouble newHeight = SVAWidth / RatioViewPort;
+		GLdouble yMiddle = (yBot + yTop) / 2.0;
+		yTop = yMiddle + newHeight / 2.0;
+		yBot = yMiddle - newHeight / 2.0;
+	}
+	else {
+		GLdouble newWidth = SVAHeight*RatioViewPort;
+		GLdouble xMiddle = (xLeft + xRight) / 2.0;
+		xRight = xMiddle + newWidth / 2.0;
+		xLeft = xMiddle - newWidth / 2.0;
 	}
 
 	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();   
+	glLoadIdentity();
 	glOrtho(xLeft, xRight, yBot, yTop, N, F);
 }
-
 
 void zoom(float incr){
 	GLdouble fAux = 1 + incr;
@@ -306,13 +307,13 @@ void key(unsigned char key, int x, int y){
 		case 'd': angZ=angZ+5; break;
 		case 'c': angZ=angZ-5; break;  
 		case 'g': 
-			if (practica == Practicas::HIPOTROCOIDE)
+			if (practica == Practicas::HIPOTROCOIDE || practica == Practicas::CAMARAHIPO)
 				h->cambiaModoRelleno(true);
 			else if (practica == Practicas::P2)
 				c->apagaFoco();
 			break;
 		case 'h': 
-			if (practica == Practicas::HIPOTROCOIDE)
+			if (practica == Practicas::HIPOTROCOIDE || practica == Practicas::CAMARAHIPO)
 				h->cambiaModoRelleno(false);
 			if (practica == Practicas::P2)
 				glDisable(GL_LIGHT4); // TODO 
@@ -324,14 +325,24 @@ void key(unsigned char key, int x, int y){
 		case 'm':
 			if (practica == Practicas::COCHE || practica == Practicas::P2)
 				c->mover(1);
-			if (practica == Practicas::CAMARAHIPO)
-				time_camara_hipotrocoide += 0.1;
+			if (practica == Practicas::CAMARAHIPO){
+				time_camara_hipotrocoide += 0.01f;
+				if (time_camara_hipotrocoide > (8 * 3.1415f))
+					time_camara_hipotrocoide -= (8 * 3.1415f);
+				cam->setPositionView(h->curva(time_camara_hipotrocoide), h->curva(time_camara_hipotrocoide+0.1f));
+
+			}
 			break;
 		case 'n':
 			if (practica == Practicas::COCHE || practica == Practicas::P2)
 				c->mover(-1);
-			if (practica == Practicas::CAMARAHIPO)
-				time_camara_hipotrocoide -= 0.1;
+			if (practica == Practicas::CAMARAHIPO){
+				time_camara_hipotrocoide -= 0.01f;
+				if (time_camara_hipotrocoide < (8 * 3.1415f))
+					time_camara_hipotrocoide += (8 * 3.1415f);
+				cam->setPositionView(h->curva(time_camara_hipotrocoide), h->curva(time_camara_hipotrocoide + 0.1f));
+
+			}
 			break;
 		case 'o':
 			if (practica == Practicas::P2)
@@ -390,23 +401,23 @@ void key(unsigned char key, int x, int y){
 			break;
 		case 'q':
 			if (practica == Practicas::P2)
-				cam->roll(0.05); 
+				cam->roll(0.05f); 
 			break;
 		case 'w':
 			if (practica == Practicas::P2)
-				cam->yaw(0.05); 
+				cam->yaw(0.05f); 
 			break;
 		case 'e':
 			if (practica == Practicas::P2)
-				cam->pitch(0.05); 
+				cam->pitch(0.05f); 
 			break;
 		case 'i':
 			if (practica == Practicas::P2)
-				zoom(0.1);
+				zoom(0.1f);
 			break;
 		case 'k':
 			if (practica == Practicas::P2)
-				zoom(-0.1);
+				zoom(-0.1f);
 			break;
 		case 'R':
 			reset();
