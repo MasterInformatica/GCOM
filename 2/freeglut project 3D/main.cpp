@@ -82,7 +82,7 @@ void buildSceneObjects() {
 		h = new Hipotrocoide(20, 100);
 		time_camara_hipotrocoide = 0.0f;
 		cam->setPositionView(h->curva(time_camara_hipotrocoide), h->primeraDerivada(time_camara_hipotrocoide));
-		xRight = 0.5; xLeft = -xRight; yTop = 0.5, yBot = -yTop, N = 1, F = 10;
+		xRight = 0.8; xLeft = -xRight; yTop = 0.8, yBot = -yTop, N = 1, F = 3;
 		
 		break;
 	}	
@@ -120,11 +120,12 @@ void initGL() {
 	//glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_FALSE);
 
 	// Camera set up
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
 	if (practica == Practicas::CAMARAHIPO)
-		cam->setPositionView(h->curva(time_camara_hipotrocoide), h->primeraDerivada(time_camara_hipotrocoide));
+		cam->setPositionView(h->transformaPunto(new PuntoVector3D(0.0f,0.0f,0.0f,0.0f),time_camara_hipotrocoide), h->curva(time_camara_hipotrocoide+0.1f));
 	else{
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
+
 		gluLookAt(eyeX, eyeY, eyeZ, lookX, lookY, lookZ, upX, upY, upZ);
 	}
 	// Frustum set up

@@ -310,9 +310,9 @@ void Camara::setPositionView(PuntoVector3D* posicion, PuntoVector3D* direccionVi
 	eye->setX(posicion->getX());
 	eye->setY(posicion->getY());
 	eye->setZ(posicion->getZ());
-	look->setX(/*posicion->getX() + */direccionVista->getX());
-	look->setY(/*posicion->getY() + */direccionVista->getY());
-	look->setZ(/*posicion->getZ() + */direccionVista->getZ());
+	look->setX(/*posicion->getX()*/ + direccionVista->getX());
+	look->setY(/*posicion->getY()*/ + direccionVista->getY());
+	look->setZ(/*posicion->getZ()*/ + direccionVista->getZ());
 
 	//Up para que se vea.
 	up->setX(0.0f);

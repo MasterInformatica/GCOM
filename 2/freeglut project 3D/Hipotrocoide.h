@@ -13,6 +13,7 @@ public:
 	void dibuja();
 	PuntoVector3D* curva(float t);
 	PuntoVector3D* primeraDerivada(float t);
+	PuntoVector3D* transformaPunto(PuntoVector3D* pto, float t);
 private:
 	Hipotrocoide(){};
 
@@ -30,7 +31,6 @@ private:
 	
 	PuntoVector3D* segundaDerivada(float t);
 	float* marcoFrenet(float t);
-	PuntoVector3D* transformaPunto(PuntoVector3D* pto, float t);
 
 
 };
