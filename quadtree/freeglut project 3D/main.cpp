@@ -6,6 +6,7 @@
 
 #include "Bosque.h"
 #include "Cilindro.h"
+#include <cmath>
 #include <iostream>
 using namespace std;
 
@@ -16,27 +17,14 @@ int WIDTH= 500, HEIGHT= 500;
 GLdouble xRight=10, xLeft=-xRight, yTop=10, yBot=-yTop, N=1, F=1000;
 
 // Camera parameters
-GLdouble eyeX=100.0, eyeY=100.0, eyeZ=100.0;
+GLdouble eyeX=0.0, eyeY=10.0, eyeZ=20.0;
 GLdouble lookX=0.0, lookY=0.0, lookZ=0.0;
 GLdouble upX=0, upY=1, upZ=0;
-float time_camara_hipotrocoide = 0.0;
+
 // Scene variables
 GLfloat angX, angY, angZ; 
-bool baldosas = false;
+
 //--------------------------------------------------------------------------------------------
-
-// TIPOS PARA EJECUTAR LAS DIFERENTES PRACTICAS
-typedef enum {
-	IMAN,
-	HIPOTROCOIDE,
-	BOSQUE,
-	COCHE,
-	P2,
-	CAMARAHIPO,
-	NONE
-} Practicas;
-
-Practicas practica = Practicas::NONE;
 
 
 Bosque* b;
@@ -128,7 +116,9 @@ void drawScene(){
 	glColor3f(1.0, 1.0, 1.0);
 
 	//...........................................
-	b->dibuja();
+	
+	b->dibuja(min(xRight, xLeft), min(eyeZ - F, eyeZ - N),
+		max(xRight, xLeft), max(eyeZ - F, eyeZ - N));
 	//...........................................
 
 	glPopMatrix();
@@ -187,6 +177,7 @@ void key(unsigned char key, int x, int y){
 	case 'x': angY = angY - 5; break;
 	case 'd': angZ = angZ + 5; break;
 	case 'c': angZ = angZ - 5; break;
+	case 'q': b->cambiaQuad(); break;
 	}
 	if (need_redisplay)
 		glutPostRedisplay();
