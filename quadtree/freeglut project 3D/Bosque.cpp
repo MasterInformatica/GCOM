@@ -16,7 +16,7 @@ Bosque::Bosque(){
 	Arbol* obj;
 	GLfloat xInit = 0 - (Bosque::numX / 2)*Bosque::separacion;
 	GLfloat x = (Bosque::numX / 2)*Bosque::separacion + 5;
-	GLfloat z = (Bosque::numZ / 2)*Bosque::separacion + 5;
+	GLfloat z = (Bosque::numZ)*Bosque::separacion + 5;
 	this->quad = new QuadNode(-1.0*x,-1.0*z,x,4);
 	
 	srand(time(NULL));

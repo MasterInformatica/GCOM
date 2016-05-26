@@ -33,7 +33,7 @@ Faro::Faro(GLenum idLuz, GLfloat rMax, GLfloat rMin, GLfloat ancho, int slices, 
 
 
 	//LUCES
-	glEnable(this->idLuz);
+	glDisable(this->idLuz);
 
 	//Definir foco
 	glLightf(this->idLuz, GL_SPOT_CUTOFF, atan2(this->rMax, this->ancho)*360/6.28);

@@ -167,6 +167,27 @@ void reset(){
 	angZ = 0.0f;
 }
 
+void zoom(float incr){
+	GLdouble fAux = 1 + incr;
+	GLdouble anchoNew = (xRight - xLeft) / fAux;
+	GLdouble altoNew = (yTop - yBot) / fAux;
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	GLdouble hmedio = (xRight - xLeft) / 2.0 + xLeft;
+	GLdouble vmedio = (yTop - yBot) / 2.0 + yBot;
+	xLeft = hmedio - anchoNew / 2.0;
+	xRight = hmedio + anchoNew / 2.0;
+	yBot = vmedio - altoNew / 2.0;
+	yTop = vmedio + altoNew / 2.0;
+
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
+	glOrtho(xLeft, xRight, yBot, yTop, N, F);
+
+}
+
 void resize(int newWidth, int newHeight) {
 	WIDTH = newWidth;
 	HEIGHT = newHeight;
@@ -214,6 +235,8 @@ void key(unsigned char key, int x, int y){
 	case 'd': angZ = angZ + 5; break;
 	case 'c': angZ = angZ - 5; break;
 	case 'q': b->cambiaQuad(); break;
+	case 'i':zoom(0.1f); break;
+	case 'k': zoom(-0.1f); break;
 	}
 	if (need_redisplay)
 		glutPostRedisplay();

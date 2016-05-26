@@ -75,7 +75,7 @@ void buildSceneObjects() {
 		cam = new Camara();
 		c = new Coche(3, GL_LIGHT1, GL_LIGHT2);
 		f = new Farola(GL_LIGHT3);
-		f->traslada(-3.0f, 0.0f, -3.5f);
+		f->traslada(-3.0f, 0.0f, -3.0f);
 		break;
 	case CAMARAHIPO:
 		cam = new Camara();
@@ -101,8 +101,9 @@ void initGL() {
 	buildSceneObjects();
 	
 	// Light0
-	glEnable(GL_LIGHTING);  
-   /* glEnable(GL_LIGHT0);
+	glEnable(GL_LIGHTING); 
+	/*
+    glEnable(GL_LIGHT0);
     GLfloat d[]={0.7f,0.5f,0.5f,1.0f};
     glLightfv(GL_LIGHT0, GL_DIFFUSE, d);
     GLfloat a[]={0.3f,0.3f,0.3f,1.0f};

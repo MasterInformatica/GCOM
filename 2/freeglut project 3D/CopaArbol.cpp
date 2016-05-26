@@ -73,7 +73,7 @@ void CopaArbol::cambiarMaterial(GLfloat x){
 }
 
 void CopaArbol::dibuja(){
-	std::cout << "Imprimo un: " << this->valSpecular << std::endl;
+	
 	GLfloat col[] = { this->valSpecular, this->valSpecular, this->valSpecular, 1.0f };
 	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, col);
 

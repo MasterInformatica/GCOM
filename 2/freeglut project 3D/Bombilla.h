@@ -6,7 +6,7 @@ class Bombilla : public Esfera {
 public:
 	Bombilla(GLenum idLuz,GLfloat radius, GLint slices = 20, GLint stacks = 20);
 	~Bombilla();
-
+	virtual void dibuja();
 	void enciende();
 	void apaga();
 private:

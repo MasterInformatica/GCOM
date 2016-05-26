@@ -11,7 +11,7 @@ Farola::Farola(GLenum idLuz, GLfloat radio, GLfloat altura, int slices, int stac
 
 	//Palo de la farola
 	Objeto3D* obj;
-	obj = new Cilindro(radio*0.2, radio*0.1, this->altura, slices, stacks);
+	obj = new Cilindro(radio*0.2, radio*0.1, altura, slices, stacks);
 	//obj->traslada(0.0f, altura / 2.0, 0.0f);
 	obj->rota(-90.0, 1.0f, 0.0f, 0.0f);
 	obj->setColor(0.0f, 0.0f, 0.0f);

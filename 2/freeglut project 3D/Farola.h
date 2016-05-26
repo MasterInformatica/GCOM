@@ -4,7 +4,7 @@
 #include "ObjetoCompuesto.h"
 class Farola : public ObjetoCompuesto {
 public:
-	Farola(GLenum idLuz, GLfloat radio = 1.0f, GLfloat altura = 6.0f, int slices = 20, int stacks = 20);
+	Farola(GLenum idLuz, GLfloat radio = 1.0f, GLfloat altura = 8.0f, int slices = 20, int stacks = 20);
 	~Farola();
 	
 	void enciende();
