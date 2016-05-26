@@ -82,7 +82,7 @@ void buildSceneObjects() {
 		h = new Hipotrocoide(20, 100);
 		time_camara_hipotrocoide = 0.0f;
 		cam->setPositionView(h->curva(time_camara_hipotrocoide), h->primeraDerivada(time_camara_hipotrocoide));
-		xRight = 0.8; xLeft = -xRight; yTop = 0.8, yBot = -yTop, N = 1, F = 3;
+		xRight = 0.8; xLeft = -xRight; yTop = 0.8, yBot = -yTop, N = 0, F = 3;
 		
 		break;
 	}	
@@ -114,9 +114,14 @@ void initGL() {
 	glLightfv(GL_LIGHT0, GL_POSITION, p);
 	*/
 	//Luz ambiente
-	GLfloat value[] = { 0.0f, 0.0f, 0.0f, 1.0f };
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT, value);
-
+	if (practica == Practicas::P2){
+		GLfloat value[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, value);
+	}
+	else {
+		GLfloat value[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, value);
+	}
 	//glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_FALSE);
 
 	// Camera set up

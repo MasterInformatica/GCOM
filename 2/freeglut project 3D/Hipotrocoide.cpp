@@ -192,9 +192,15 @@ PuntoVector3D* Hipotrocoide::transformaPunto(PuntoVector3D* pto, float t){
 
 void Hipotrocoide::dibuja(){
 	
+	//Pintado de 2 caras
+	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
 
 	for (int i = 0; i < numeroCaras; i++){
-		if ((i/this->nQ)%2)
+		/*if ((i/this->nQ)%2)
+			glColor3f(0.2f, 0.2f, 1.0f);
+		else
+			glColor3f(0.2f, 1.0f, 0.2f);*/
+		if ((i + i/this->nP) % 2)
 			glColor3f(0.2f, 0.2f, 1.0f);
 		else
 			glColor3f(0.2f, 1.0f, 0.2f);
